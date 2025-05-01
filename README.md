@@ -28,7 +28,7 @@ AI(Gemini)를 활용해 여행 성향에 맞는 도시를 추천하고,
 
 | 파트 | 기술 스택 |
 |------|-----------|
-| Frontend | **Next.js (React)**, TypeScript *(예정)* |
+| Frontend | **Tanstack Start + React**, TypeScript *(예정)* |
 | Backend | **FastAPI**, **MySQL** |
 | AI | **Gemini API (Google Generative AI)** |
 | 기타 | JSON 통신, Docker (컨테이너화), 환경변수 관리 등 |
