@@ -1,6 +1,13 @@
 @import "tailwindcss" source("../");
 @import "tw-animate-css";
 
+@font-face {
+  font-family: 'HakgyoansimWoojuR';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/HakgyoansimWoojuR.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -74,6 +81,8 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  font-family: 'HakgyoansimWoojuR', 'SUITE', 'SUIT', 'Pretendard', 'Noto Sans CJK KR', 'Noto Sans KR', sans-serif;
 }
 
 .dark {
