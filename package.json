@@ -1,5 +1,5 @@
 {
-  "name": "Travia_FE",
+  "name": "travia_front",
   "type": "module",
   "scripts": {
     "dev": "vinxi dev",

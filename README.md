@@ -6,6 +6,21 @@
 
 ---
 
+## 🔨 프로젝트 설정
+
+### 사전 설치 필요
+
+- Node.js 22 or higher
+
+### 단계별 설정
+
+1. 본 저장소를 `git clone https://github.com/GDGoC-SCHU/Travia_FE/` 명령어로 복제합니다.
+2. `corepack enable` 명령어로 `npm` 이외의 패키지 매니저를 쉽게 사용할 수 있도록 설정합니다.
+3. `yarn set version stable` 명령어로 최신 버전이 설치되어 있는지 확인하고, 설치되어 있지 않다면 설치되도록 합니다.
+4. `yarn install` 명령어로 패키지를 설치하고, `yarn run dev`로 정상 실행 여부를 확인합니다. 일반적으로 개발 서버의 기본 주소는 `localhost:3000`이며, 다른 서버가 포트를 사용 중인 경우 다른 포트를 사용하거나 실행이 실패할 수 있습니다.
+
+---
+
 ## 🏷️ 커밋 타입 가이드
 
 | 타입 | 설명           | 예시                                  |
@@ -28,7 +43,7 @@ AI(Gemini)를 활용해 여행 성향에 맞는 도시를 추천하고,
 
 | 파트 | 기술 스택 |
 |------|-----------|
-| Frontend | **Tanstack Start + React**, TypeScript *(예정)* |
+| Frontend | **Tanstack Start + React**, TypeScript |
 | Backend | **FastAPI**, **MySQL** |
 | AI | **Gemini API (Google Generative AI)** |
 | 기타 | JSON 통신, Docker (컨테이너화), 환경변수 관리 등 |
@@ -91,4 +106,14 @@ AI(Gemini)를 활용해 여행 성향에 맞는 도시를 추천하고,
   ]
 }
 ```
+
+---
+
+## 📄 Open Source License
+
+- [React](https://react.dev) MIT License
+- [Tanstack Start](https://tanstack.com/start/latest/docs/framework/react/overview) MIT License
+- [TailwindCSS](https://tailwindcss.com) MIT License
+- [shadcn UI](https://ui.shadcn.com/) MIT License
+- [학교안심 우주](https://copyright.keris.or.kr/idx) SIL OFL [#CDN](https://noonnu.cc/font_page/1223)
 
