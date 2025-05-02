@@ -7,7 +7,8 @@ import {
   Scripts,
 } from '@tanstack/react-router'
 
-import appCss from "@/styles/app.css?url"
+import appCss from "@/styles/app.css?url";
+import Header from '@/components/Header';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -20,7 +21,7 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'Travia',
       },
     ],
     links: [
@@ -48,7 +49,10 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <HeadContent />
       </head>
       <body>
-        {children}
+        <Header />
+        <main className="p-4 flex gap-4 flex-wrap">
+          {children}
+        </main>
         <Scripts />
       </body>
     </html>
