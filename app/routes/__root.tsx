@@ -32,6 +32,7 @@ export const Route = createRootRoute({
     ],
   }),
   component: RootComponent,
+  ssr: false
 })
 
 function RootComponent() {

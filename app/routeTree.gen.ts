@@ -11,9 +11,16 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as Step2Import } from './routes/step2'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const Step2Route = Step2Import.update({
+  id: '/step2',
+  path: '/step2',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -32,6 +39,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/step2': {
+      id: '/step2'
+      path: '/step2'
+      fullPath: '/step2'
+      preLoaderRoute: typeof Step2Import
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -39,32 +53,37 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/step2': typeof Step2Route
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/step2': typeof Step2Route
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/step2': typeof Step2Route
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/step2'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/step2'
+  id: '__root__' | '/' | '/step2'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  Step2Route: typeof Step2Route
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  Step2Route: Step2Route,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +96,15 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/step2"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/step2": {
+      "filePath": "step2.tsx"
     }
   }
 }

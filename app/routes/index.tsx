@@ -1,42 +1,28 @@
 // app/routes/index.tsx
-import * as fs from 'node:fs'
-import { createFileRoute, Link, useRouter } from '@tanstack/react-router'
-import { createServerFn } from '@tanstack/react-start'
-import { buttonVariants } from '@/components/ui/button'
+import { createFileRoute, Link, useNavigate, useRouter } from '@tanstack/react-router'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { CircleArrowRight } from 'lucide-react'
-
-const filePath = 'count.txt'
-
-async function readCount() {
-  return parseInt(
-    await fs.promises.readFile(filePath, 'utf-8').catch(() => '0'),
-  )
-}
-
-const getCount = createServerFn({
-  method: 'GET',
-}).handler(() => {
-  return readCount()
-})
-
-const updateCount = createServerFn({ method: 'POST' })
-  .validator((d: number) => d)
-  .handler(async ({ data }) => {
-    const count = await readCount()
-    await fs.promises.writeFile(filePath, `${count + data}`)
-  })
+import { useRef, useState } from 'react'
 
 export const Route = createFileRoute('/')({
   component: Home,
-  loader: async () => await getCount(),
-})
+});
+
+function Validation(name: string) {
+  if (name.trim() === "" || !name) {
+    return false;
+  } else {
+    return true;
+  }
+}
 
 function Home() {
-  const router = useRouter()
-  const state = Route.useLoaderData()
+  const router = useRouter();
+  const [warn, setWarn] = useState<boolean>(false);
+  const name = useRef<HTMLInputElement|null>(null);
 
   return (
     <>
@@ -55,13 +41,25 @@ function Home() {
         먼저,
         <Label htmlFor="name" className="text-2xl">이름을 알려주세요.</Label>
       </h1>
-      <div className="w-fit flex gap-2">
-      <Input type="text" id="name" placeholder="이름" className="text-lg" />
-      <Link to="/" className={`${buttonVariants({ variant: "default"})} text-xl items-center`}>
-        다음
-        <CircleArrowRight />
-      </Link>
-      </div>
+      <form onSubmit={async (e) => {
+        e.preventDefault();
+        if (name.current && Validation(name.current.value)) {
+          router.navigate({
+            viewTransition: true,
+            href: `/step2?name=${name.current.value}`
+          })
+        }
+      }} className="w-fit">
+        <div className="flex gap-2">
+          <Input type="text" id="name" placeholder="이름" className="text-lg" ref={name} onChange={(e) => setWarn(!Validation(e.target.value))} />
+          <Button type="submit" className="text-xl items-center">
+            다음
+            <CircleArrowRight />
+          </Button>
+        </div>
+        {warn ? <p className="text-red-400 m-0.5">성함은 빈 칸으로 둘 수 없어요.</p> :null}
+      </form>
+      <Link to="/" className="block text-cyan-600">이미 계정이 있나요? 지금 바로 로그인하세요.</Link>
     </Card>
     </>
   )
