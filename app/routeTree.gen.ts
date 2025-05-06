@@ -11,14 +11,28 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as Step3Import } from './routes/step3'
 import { Route as Step2Import } from './routes/step2'
+import { Route as LoginImport } from './routes/login'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
 
+const Step3Route = Step3Import.update({
+  id: '/step3',
+  path: '/step3',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const Step2Route = Step2Import.update({
   id: '/step2',
   path: '/step2',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LoginRoute = LoginImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,11 +53,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
     '/step2': {
       id: '/step2'
       path: '/step2'
       fullPath: '/step2'
       preLoaderRoute: typeof Step2Import
+      parentRoute: typeof rootRoute
+    }
+    '/step3': {
+      id: '/step3'
+      path: '/step3'
+      fullPath: '/step3'
+      preLoaderRoute: typeof Step3Import
       parentRoute: typeof rootRoute
     }
   }
@@ -53,37 +81,47 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/step2': typeof Step2Route
+  '/step3': typeof Step3Route
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/step2': typeof Step2Route
+  '/step3': typeof Step3Route
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
   '/step2': typeof Step2Route
+  '/step3': typeof Step3Route
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/step2'
+  fullPaths: '/' | '/login' | '/step2' | '/step3'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/step2'
-  id: '__root__' | '/' | '/step2'
+  to: '/' | '/login' | '/step2' | '/step3'
+  id: '__root__' | '/' | '/login' | '/step2' | '/step3'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
   Step2Route: typeof Step2Route
+  Step3Route: typeof Step3Route
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
   Step2Route: Step2Route,
+  Step3Route: Step3Route,
 }
 
 export const routeTree = rootRoute
@@ -97,14 +135,22 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/step2"
+        "/login",
+        "/step2",
+        "/step3"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
+    "/login": {
+      "filePath": "login.tsx"
+    },
     "/step2": {
       "filePath": "step2.tsx"
+    },
+    "/step3": {
+      "filePath": "step3.tsx"
     }
   }
 }

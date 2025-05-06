@@ -45,7 +45,7 @@ function Home() {
         <div className="flex gap-2">
           <Input type="text" id="name" placeholder="이름" className="text-lg" ref={name} onChange={(e) => setWarn(!Validation(e.target.value))} />
           <Button type="submit" className="text-xl items-center">
-            다음
+            다음 단계로
             <CircleArrowRight />
           </Button>
         </div>

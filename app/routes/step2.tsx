@@ -53,7 +53,7 @@ function SecondStep() {
           localStorage.clear();
           router.navigate({
             viewTransition: true,
-            href: `/step3?type=${type}`
+            href: `/step3?travelWith=${type}`
           });
         }
       }}>
@@ -77,7 +77,7 @@ function SecondStep() {
       <div className="w-fit">
         <Link to="/" className={ buttonVariants() }>
           <CircleArrowLeft />
-          이전
+          이전 단계로
         </Link>
       </div>
     </CardSection>
