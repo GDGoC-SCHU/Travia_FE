@@ -75,9 +75,14 @@ function RouteComponent() {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         let types = formData.getAll("type").join(",");
+        const others = formData.get("others")
 
-        if (formData.get("others")) {
-          types.concat(`,${formData.get("others")}`);
+        if (others) {
+          if (types) {
+            types = types.concat(`,${others}`);
+          } else {
+            types = others.toString();
+          }
         }
 
         router.navigate({
