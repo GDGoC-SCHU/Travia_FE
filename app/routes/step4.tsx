@@ -88,7 +88,7 @@ function RouteComponent() {
         const transport = formData.get("transport");
 
         if (day && night && transport) {
-          const schedule = `${night}박 ${day}`;
+          const schedule = `${night}박 ${day}일`;
           
           router.navigate({
             viewTransition: true,
