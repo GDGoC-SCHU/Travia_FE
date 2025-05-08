@@ -11,12 +11,19 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as Step4Import } from './routes/step4'
 import { Route as Step3Import } from './routes/step3'
 import { Route as Step2Import } from './routes/step2'
 import { Route as LoginImport } from './routes/login'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const Step4Route = Step4Import.update({
+  id: '/step4',
+  path: '/step4',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const Step3Route = Step3Import.update({
   id: '/step3',
@@ -74,6 +81,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Step3Import
       parentRoute: typeof rootRoute
     }
+    '/step4': {
+      id: '/step4'
+      path: '/step4'
+      fullPath: '/step4'
+      preLoaderRoute: typeof Step4Import
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -84,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/step2': typeof Step2Route
   '/step3': typeof Step3Route
+  '/step4': typeof Step4Route
 }
 
 export interface FileRoutesByTo {
@@ -91,6 +106,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/step2': typeof Step2Route
   '/step3': typeof Step3Route
+  '/step4': typeof Step4Route
 }
 
 export interface FileRoutesById {
@@ -99,14 +115,15 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/step2': typeof Step2Route
   '/step3': typeof Step3Route
+  '/step4': typeof Step4Route
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/step2' | '/step3'
+  fullPaths: '/' | '/login' | '/step2' | '/step3' | '/step4'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/step2' | '/step3'
-  id: '__root__' | '/' | '/login' | '/step2' | '/step3'
+  to: '/' | '/login' | '/step2' | '/step3' | '/step4'
+  id: '__root__' | '/' | '/login' | '/step2' | '/step3' | '/step4'
   fileRoutesById: FileRoutesById
 }
 
@@ -115,6 +132,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   Step2Route: typeof Step2Route
   Step3Route: typeof Step3Route
+  Step4Route: typeof Step4Route
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -122,6 +140,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   Step2Route: Step2Route,
   Step3Route: Step3Route,
+  Step4Route: Step4Route,
 }
 
 export const routeTree = rootRoute
@@ -137,7 +156,8 @@ export const routeTree = rootRoute
         "/",
         "/login",
         "/step2",
-        "/step3"
+        "/step3",
+        "/step4"
       ]
     },
     "/": {
@@ -151,6 +171,9 @@ export const routeTree = rootRoute
     },
     "/step3": {
       "filePath": "step3.tsx"
+    },
+    "/step4": {
+      "filePath": "step4.tsx"
     }
   }
 }

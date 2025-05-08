@@ -4957,6 +4957,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"framer-motion@npm:^12.10.3":
+  version: 12.10.3
+  resolution: "framer-motion@npm:12.10.3"
+  dependencies:
+    motion-dom: "npm:^12.10.3"
+    motion-utils: "npm:^12.9.4"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/6416e0c0fd406d7f18365fb1906fbef5e4ba2794065b446efc154ad6a3627411bdf432ff7eee2dc24d0a3f83cfe26c9342d4c5fa5dde1ca13e369d8b290ef4e8
+  languageName: node
+  linkType: hard
+
 "fresh@npm:0.5.2":
   version: 0.5.2
   resolution: "fresh@npm:0.5.2"
@@ -6461,6 +6483,43 @@ __metadata:
   bin:
     module-definition: bin/cli.js
   checksum: 10c0/7fdaca717c523dbba6dbe8f8b2e53e18038c0fbbef8deedd497af05a19f8fa069939dec90df2d3c027ea942b28c1f7cc088911cc212859c192c247b470e0d1a9
+  languageName: node
+  linkType: hard
+
+"motion-dom@npm:^12.10.3":
+  version: 12.10.3
+  resolution: "motion-dom@npm:12.10.3"
+  dependencies:
+    motion-utils: "npm:^12.9.4"
+  checksum: 10c0/f0b227bb44e4370606e137fb7ac7fe9ae8a88067bc1452d4b2c600a4d275cbeac945620ebc338c9ef5af077f07b9000119516b37a87bd6bbaeedf48df5362738
+  languageName: node
+  linkType: hard
+
+"motion-utils@npm:^12.9.4":
+  version: 12.9.4
+  resolution: "motion-utils@npm:12.9.4"
+  checksum: 10c0/b6783babfd1282ad320585f7cdac9fe7a1f97b39e07d12a500d3709534441bd9d49b556fa1cd838d1bde188570d4ab6b4c5aa9d297f7f5aa9dc16d600c17afdc
+  languageName: node
+  linkType: hard
+
+"motion@npm:^12.10.3":
+  version: 12.10.3
+  resolution: "motion@npm:12.10.3"
+  dependencies:
+    framer-motion: "npm:^12.10.3"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/80533ffe977c00082e65502cffdd949ecfed91a5fb3eb701171b9d8a84a06b79eabc2f0942569b3901d6a9e90705db3c08e05677e03ceb1ecb0aa5b89311d1f9
   languageName: node
   linkType: hard
 
@@ -8334,6 +8393,7 @@ __metadata:
     class-variance-authority: "npm:^0.7.1"
     clsx: "npm:^2.1.1"
     lucide-react: "npm:^0.503.0"
+    motion: "npm:^12.10.3"
     postcss: "npm:^8.5.3"
     react: "npm:^19.1.0"
     react-dom: "npm:^19.1.0"

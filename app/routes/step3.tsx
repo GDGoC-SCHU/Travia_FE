@@ -1,10 +1,13 @@
 import CardSection from '@/components/CardSection';
 import Title from '@/components/Title';
 import { Button, buttonVariants } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { createFileRoute, Link, redirect, useRouter } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start';
 import { getCookie, setCookie } from '@tanstack/react-start/server';
-import { CircleArrowLeft, Palette, MessageCircleHeart, Milestone, UtensilsCrossed } from 'lucide-react';
+import { CircleArrowLeft, Palette, MessageCircleHeart, Milestone, UtensilsCrossed, CircleArrowRight, CircleEllipsis } from 'lucide-react';
+import { useRef } from 'react';
+import { animate } from "motion";
 
 const getName = createServerFn({
   method: "GET",
@@ -24,11 +27,7 @@ const getName = createServerFn({
   }
 });
 
-const selectType = (type: string) => {
-  localStorage.setItem("actType", type);
-}
-
-const travelWithType = (companion: string) => {
+export const travelWithType = (companion: string) => {
   switch(companion) {
     case "single":
       return "혼자서"
@@ -58,48 +57,158 @@ export const Route = createFileRoute('/step3')({
 function RouteComponent() {
   const data = Route.useLoaderData();
   const router = useRouter();
+  
+  const heartful = useRef<HTMLLabelElement>(null);
+  const activities = useRef<HTMLLabelElement>(null);
+  const food = useRef<HTMLLabelElement>(null);
+  const culture = useRef<HTMLLabelElement>(null);
+
+  const others = useRef<HTMLButtonElement>(null);
+  const othersForm = useRef<HTMLDivElement>(null);
+  const othersInput = useRef<HTMLInputElement>(null);
 
   return (
     <>
     <Title type="h1" text="어떤 여행이 좋으신가요?" name={data.name} />
     <CardSection>
-      <p className="text-xl">{travelWithType(data.travelWith)} {data.travelWith === "single" ? "":"함께"}</p>
-      <form className="w-full lg:w-64 grid grid-cols-2 lg:flex gap-2 lg:flex-nowrap! flex-wrap" onSubmit={async (e) => {
+      <form className="flex flex-col gap-4 w-full lg:w-max" onSubmit={async (e) => {
         e.preventDefault();
-        const type = localStorage.getItem("actType");
+        const formData = new FormData(e.currentTarget);
+        let types = formData.getAll("type").join(",");
 
-        if (type) {
-          localStorage.clear();
-          router.navigate({
-            viewTransition: true,
-            href: `/step3?act=${type}`
-          });
+        if (formData.get("others")) {
+          types.concat(`,${formData.get("others")}`);
         }
+
+        router.navigate({
+          viewTransition: true,
+          href: `/step4?act=${types}`
+        })
       }}>
-        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" onClick={(e) => selectType("heartful")}>
-          <MessageCircleHeart size={48} className="grow min-w-8" strokeWidth={1} />
-          감성
-        </Button>
-        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" onClick={(e) => selectType("activity")}>
-          <Milestone size={48} className="grow min-w-8" strokeWidth={1} />
-          액티비티
-        </Button>
-        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" onClick={(e) => selectType("food")}>
-          <UtensilsCrossed size={48} className="grow min-w-8" strokeWidth={1} />
-          먹방
-        </Button>
-        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" onClick={(e) => selectType("culture")}>
-          <Palette size={48} className="grow min-w-8" strokeWidth={1} />
-          문화체험
-        </Button>
+        <p className="text-xl">{travelWithType(data.travelWith)} {data.travelWith === "single" ? "":"함께"}</p>
+        <div className="w-full grid grid-cols-2 lg:flex gap-2 lg:flex-nowrap! flex-wrap grow">
+          <label htmlFor="heartful" className={`text-xl flex-col h-32 lg:w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={heartful}>
+            <MessageCircleHeart size={48} className="grow min-w-8" strokeWidth={1} />
+            감성
+          </label>
+          <input name="type" id="heartful" value="heartful" type="checkbox" className="hidden" onChange={async (e) => {
+            if(e.target.checked && heartful.current) {
+              heartful.current.classList.remove("bg-secondary");
+              heartful.current.classList.remove("hover:bg-secondary/80");
+              heartful.current.classList.add("bg-sky-100");
+              heartful.current.classList.add("hover:bg-sky-50");
+            } else if(heartful.current) {
+              animate(heartful.current, { borderWidth: 0 }, { duration: 0.3 });
+              heartful.current.classList.remove("bg-sky-100");
+              heartful.current.classList.remove("hover:bg-sky-50");
+              heartful.current.classList.add("bg-secondary");
+              heartful.current.classList.add("hover:bg-secondary/80");
+            }
+          }}/>
+
+          <label htmlFor="activity" className={`text-xl flex-col h-32 lg:w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={activities}>
+            <Milestone size={48} className="grow min-w-8" strokeWidth={1} />
+            액티비티
+          </label>
+          <input name="type" id="activity" value="activity" type="checkbox" className="hidden" onChange={async (e) => {
+            if(e.target.checked && activities.current) {
+              activities.current.classList.remove("bg-secondary");
+              activities.current.classList.remove("hover:bg-secondary/80");
+              activities.current.classList.add("bg-sky-100");
+              activities.current.classList.add("hover:bg-sky-50");
+            } else if(activities.current) {
+              animate(activities.current, { borderWidth: 0 }, { duration: 0.3 });
+              activities.current.classList.remove("bg-sky-100");
+              activities.current.classList.remove("hover:bg-sky-50");
+              activities.current.classList.add("bg-secondary");
+              activities.current.classList.add("hover:bg-secondary/80");
+            }
+          }}/>
+
+          <label htmlFor="food" className={`text-xl flex-col h-32 lg:w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={food}>
+            <UtensilsCrossed size={48} className="grow min-w-8" strokeWidth={1} />
+            먹방
+          </label>
+          <input name="type" id="food" value="food" type="checkbox" className="hidden" onChange={async (e) => {
+            if(e.target.checked && food.current) {
+              food.current.classList.remove("bg-secondary");
+              food.current.classList.remove("hover:bg-secondary/80");
+              food.current.classList.add("bg-sky-100");
+              food.current.classList.add("hover:bg-sky-50");
+            } else if(food.current) {
+              animate(food.current, { borderWidth: 0 }, { duration: 0.3 });
+              food.current.classList.remove("bg-sky-100");
+              food.current.classList.remove("hover:bg-sky-50");
+              food.current.classList.add("bg-secondary");
+              food.current.classList.add("hover:bg-secondary/80");
+            }
+          }}/>
+
+          <label htmlFor="culture" className={`text-xl flex-col h-32 lg:w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={culture}>
+            <Palette size={48} className="grow min-w-8" strokeWidth={1} />
+            문화체험
+          </label>
+          <input name="type" id="culture" value="culture" type="checkbox" className="hidden" onChange={async (e) => {
+            if(e.target.checked && culture.current) {
+              culture.current.classList.remove("bg-secondary");
+              culture.current.classList.remove("hover:bg-secondary/80");
+              culture.current.classList.add("bg-sky-100");
+              culture.current.classList.add("hover:bg-sky-50");
+            } else if(culture.current) {
+              animate(culture.current, { borderWidth: 0 }, { duration: 0.3 });
+              culture.current.classList.remove("bg-sky-100");
+              culture.current.classList.remove("hover:bg-sky-50");
+              culture.current.classList.add("bg-secondary");
+              culture.current.classList.add("hover:bg-secondary/80");
+            }
+          }} />
+
+          <Button variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" ref={others} onClick={async (e) => {
+            if (others.current && othersForm.current) {
+              await animate(others.current, { opacity: 0 }, { duration: 0.3 });
+              await animate(othersForm.current, { opacity: 1 }, { duration: 0.3 });
+              others.current.hidden = true;
+              othersForm.current.hidden = false;
+            }
+          }} type="button">
+            <CircleEllipsis size={48} className="grow min-w-8" strokeWidth={1} />
+            기타
+          </Button>
+
+          <div ref={othersForm} hidden className="h-32 flex flex-col justify-center border bg-sky-50 rounded-md p-2">
+            <div className="flex justify-between">
+              <label htmlFor="others" className="flex gap-1">
+                <CircleEllipsis strokeWidth={1} />
+                기타
+              </label>
+              <button type="button" onClick={async (e) => {
+                if (others.current &&
+                  othersForm.current &&
+                  othersInput.current) {
+                  await animate(othersForm.current, { opacity: 0 }, { duration: 0.3 });
+                  await animate(others.current, { opacity: 1 }, { duration: 0.3 });
+                  othersForm.current.hidden = true;
+                  others.current.hidden = false;
+                  othersInput.current.value = "";
+                }
+              }} className="hover:bg-sky-100 rounded-md p-1">취소</button>
+            </div>
+            <p className="text-sm">쉼표로 구분하여 다양한 스타일을 표현할 수 있어요.</p>
+            <Input name="others" className="mt-2" ref={othersInput} />
+          </div>
+        </div>
+        <p className="text-xl">중심의 여행을 하고 싶어요.</p>
+        <div className="flex justify-between">
+          <Link to={`/step2`} search={{ name: data.name }} className={ buttonVariants() }>
+            <CircleArrowLeft />
+            이전 단계로
+          </Link>
+          <Button type="submit">
+            다 골랐어요
+            <CircleArrowRight />
+          </Button>
+        </div>
       </form>
-      <p className="text-xl">중심의 여행을 하고 싶어요.</p>
-      <div className="w-fit">
-        <Link to={`/step2`} search={{ name: data.name }} className={ buttonVariants() }>
-          <CircleArrowLeft />
-          이전 단계로
-        </Link>
-      </div>
     </CardSection>
     </>
   )
