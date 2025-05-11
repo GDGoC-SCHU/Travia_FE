@@ -57,19 +57,19 @@ function SecondStep() {
           });
         }
       }}>
-        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" onClick={(e) => selectType("single")}>
+        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" onClick={(e) => selectType("혼자")}>
           <User size={48} className="grow min-w-8" strokeWidth={1} />
           혼자
         </Button>
-        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" onClick={(e) => selectType("friend")}>
+        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" onClick={(e) => selectType("친구")}>
           <Handshake size={48} className="grow min-w-8" strokeWidth={1} />
           친구와
         </Button>
-        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" onClick={(e) => selectType("sweetheart")}>
+        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" onClick={(e) => selectType("연인")}>
           <Heart size={48} className="grow min-w-8" strokeWidth={1} />
           연인과
         </Button>
-        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" onClick={(e) => selectType("family")}>
+        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" onClick={(e) => selectType("가족")}>
           <Blend size={48} className="grow min-w-8" strokeWidth={1} />
           가족과
         </Button>

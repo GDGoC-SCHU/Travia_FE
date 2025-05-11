@@ -211,7 +211,7 @@ function RouteComponent() {
             <CircleEllipsis size={48} className="grow min-w-8" strokeWidth={1} />
             어디든
           </label>
-          <input name="continent" id="others" value="others" type="radio" className="hidden" onChange={async (e) => {
+          <input name="continent" id="others" value="어디든" type="radio" className="hidden" onChange={async (e) => {
             if(e.target.checked) {
               cont_others.current?.classList.remove("bg-secondary");
               cont_others.current?.classList.add("bg-sky-100");
@@ -288,7 +288,7 @@ function RouteComponent() {
             <Armchair size={48} className="grow min-w-8" strokeWidth={1} />
             느긋하게
           </label>
-          <input name="pace" id="relaxed" value="relaxed" type="radio" className="hidden" onChange={async (e) => {
+          <input name="pace" id="relaxed" value="느긋하게" type="radio" className="hidden" onChange={async (e) => {
             if (e.target.checked) {
               relaxed.current?.classList.remove("bg-secondary");
               relaxed.current?.classList.add("bg-sky-100");
@@ -304,7 +304,7 @@ function RouteComponent() {
             <Footprints size={48} className="grow min-w-8" strokeWidth={1} />
             적당히
           </label>
-          <input name="pace" id="moderate" value="moderate" type="radio" className="hidden" onChange={async (e) => {
+          <input name="pace" id="moderate" value="적당히" type="radio" className="hidden" onChange={async (e) => {
             if (e.target.checked) {
               moderate.current?.classList.remove("bg-secondary");
               moderate.current?.classList.add("bg-sky-100");
@@ -320,7 +320,7 @@ function RouteComponent() {
             <Activity size={48} className="grow min-w-8" strokeWidth={1} />
             열심히
           </label>
-          <input name="pace" id="active" value="active" type="radio" className="hidden" onChange={async (e) => {
+          <input name="pace" id="active" value="활동적으로" type="radio" className="hidden" onChange={async (e) => {
             if (e.target.checked) {
               active.current?.classList.remove("bg-secondary");
               active.current?.classList.add("bg-sky-100");

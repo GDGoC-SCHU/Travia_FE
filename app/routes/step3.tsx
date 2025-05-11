@@ -29,13 +29,13 @@ const getName = createServerFn({
 
 export const travelWithType = (companion: string) => {
   switch(companion) {
-    case "single":
+    case "혼자":
       return "혼자서"
-    case "friend":
+    case "친구":
       return "친구와"
-    case "sweetheart":
+    case "연인":
       return "연인과"
-    case "family":
+    case "가족":
       return "가족과"
   }
 }
@@ -90,13 +90,13 @@ function RouteComponent() {
           href: `/step4?act=${types}`
         })
       }}>
-        <p className="text-xl">{travelWithType(data.travelWith)} {data.travelWith === "single" ? "":"함께"}</p>
+        <p className="text-xl">{travelWithType(data.travelWith)} {data.travelWith === "혼자" ? "":"함께"}</p>
         <div className="w-full grid grid-cols-2 lg:flex gap-2 lg:flex-nowrap! flex-wrap grow">
           <label htmlFor="heartful" className={`text-xl flex-col h-32 lg:w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={heartful}>
             <MessageCircleHeart size={48} className="grow min-w-8" strokeWidth={1} />
             감성
           </label>
-          <input name="type" id="heartful" value="heartful" type="checkbox" className="hidden" onChange={async (e) => {
+          <input name="type" id="heartful" value="감성" type="checkbox" className="hidden" onChange={async (e) => {
             if(e.target.checked && heartful.current) {
               heartful.current.classList.remove("bg-secondary");
               heartful.current.classList.remove("hover:bg-secondary/80");
@@ -115,7 +115,7 @@ function RouteComponent() {
             <Milestone size={48} className="grow min-w-8" strokeWidth={1} />
             액티비티
           </label>
-          <input name="type" id="activity" value="activity" type="checkbox" className="hidden" onChange={async (e) => {
+          <input name="type" id="activity" value="활동" type="checkbox" className="hidden" onChange={async (e) => {
             if(e.target.checked && activities.current) {
               activities.current.classList.remove("bg-secondary");
               activities.current.classList.remove("hover:bg-secondary/80");
@@ -134,7 +134,7 @@ function RouteComponent() {
             <UtensilsCrossed size={48} className="grow min-w-8" strokeWidth={1} />
             먹방
           </label>
-          <input name="type" id="food" value="food" type="checkbox" className="hidden" onChange={async (e) => {
+          <input name="type" id="food" value="먹방" type="checkbox" className="hidden" onChange={async (e) => {
             if(e.target.checked && food.current) {
               food.current.classList.remove("bg-secondary");
               food.current.classList.remove("hover:bg-secondary/80");
@@ -153,7 +153,7 @@ function RouteComponent() {
             <Palette size={48} className="grow min-w-8" strokeWidth={1} />
             문화체험
           </label>
-          <input name="type" id="culture" value="culture" type="checkbox" className="hidden" onChange={async (e) => {
+          <input name="type" id="culture" value="문화체험" type="checkbox" className="hidden" onChange={async (e) => {
             if(e.target.checked && culture.current) {
               culture.current.classList.remove("bg-secondary");
               culture.current.classList.remove("hover:bg-secondary/80");

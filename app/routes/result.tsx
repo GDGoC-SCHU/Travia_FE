@@ -10,9 +10,9 @@ import { getCookie, setCookie } from '@tanstack/react-start/server';
 import { CircleArrowLeft, CircleArrowRight, Coffee, CakeSlice, Pizza, Pyramid, FishSymbol, CircleEllipsis, FlameKindling, Leaf, Snowflake, Footprints, Armchair, Activity, TriangleAlert, ArrowLeftCircle, ArrowRightCircle, Home } from 'lucide-react';
 import { useRef, useState } from 'react';
 
-type Continent = "asia" | "europe" | "america" | "oceania" | "africa" | "others";
+type Continent = "asia" | "europe" | "america" | "oceania" | "africa" | "어디든";
 type Environment = "warm" | "fresh" | "snowy";
-type Pace = "relaxed" | "moderate" | "active";
+type Pace = "느긋하게" | "적당히" | "활동적으로";
 
 const getResult = createServerFn({
   method: "GET",

@@ -29,21 +29,6 @@ const getAct = createServerFn({
   }
 });
 
-export const actType = (activity: string) => {
-  switch(activity) {
-    case "heartful":
-      return "감성"
-    case "activity":
-      return "액티비티"
-    case "food":
-      return "먹방"
-    case "culture":
-      return "문화체험"
-    default:
-      return activity
-  }
-}
-
 function numberHelper(e: React.ChangeEvent<HTMLInputElement>) {
   const original = e.target.value.split(",").join("");
   const numberArray = original.split("")
@@ -93,7 +78,7 @@ function RouteComponent() {
           
           router.navigate({
             viewTransition: true,
-            href: `/step5?schedule=${schedule}&transport=${transport}&budget=${budget}`
+            href: `/step5?schedule=${schedule}&transport=${transport}&budget=${budget}원`
           })
         }
       }}>
