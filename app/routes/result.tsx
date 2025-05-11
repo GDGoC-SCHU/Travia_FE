@@ -10,6 +10,8 @@ import { getCookie, setCookie } from '@tanstack/react-start/server';
 import { CircleArrowLeft, CircleArrowRight, Coffee, CakeSlice, Pizza, Pyramid, FishSymbol, CircleEllipsis, FlameKindling, Leaf, Snowflake, Footprints, Armchair, Activity, TriangleAlert, ArrowLeftCircle, ArrowRightCircle, Home, LoaderCircle } from 'lucide-react';
 import { animate } from 'motion';
 import { Suspense, useRef, useState } from 'react';
+import * as motion from "motion/react-client"
+import { AnimatePresence } from "motion/react"
 
 type Continent = "asia" | "europe" | "america" | "oceania" | "africa" | "어디든";
 type Environment = "warm" | "fresh" | "snowy";
@@ -120,15 +122,10 @@ async function RouteComponent() {
   const data = Route.useLoaderData();
   const [index, setIndex] = useState<number>(0);
 
-  const circle = useRef(null);
-  if (circle.current) {
-    animate(circle.current, { rotate: 360 }, { duration: Infinity });
-  }
-
   return (
     <Suspense fallback={
       <section className="w-screen h-full z-30 backdrop-blur-md">
-        <LoaderCircle className="accent-cyan-600" ref={circle} />
+        <LoaderCircle className="accent-cyan-600" />
         알려주신 내용을 바탕으로 고민하고 있어요
       </section>
     }>
@@ -172,17 +169,20 @@ async function RouteComponent() {
             <AccordionItem value="reason">
               <AccordionTrigger className="my-2 text-xl hover:bg-gray-50 px-4 hover:no-underline">📝 추천하는 이유!</AccordionTrigger>
               <AccordionContent>
-                <p className="p-4 bg-blue-50 rounded-md">{data.result.data[index].reason}</p>
+                <motion.p className="p-4 bg-blue-50 rounded-md"
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+                  {data.result.data[index].reason}
+                </motion.p>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
 
           <div className="max-w-(--scrollable-max-width) overflow-x-scroll flex gap-2 py-8 px-4 rounded-2xl">
-          {Object.keys(data.result.data[index].schedule).map((day) => (
-            <Card className="shadow-xl p-4 shrink-0 w-6/7 lg:w-72">
+          {Object.keys(data.result.data[index].schedule).map((day, idx) => (
+            <Card className="shadow-xl p-4 shrink-0 w-6/7 lg:w-72" key={idx}>
               <h3 className="text-xl">{day.split("_")[1]}일차</h3>
-              {data.result.data[index].schedule[day].map((ev) => (
-                <p>
+              {data.result.data[index].schedule[day].map((ev : { time: string, activity: string }, idx: number) => (
+                <p key={idx}>
                   <span className="text-lg block">⌚ {ev.time}</span>
                   <span>{ev.activity}</span>
                 </p>
