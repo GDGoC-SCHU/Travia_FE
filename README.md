@@ -38,15 +38,15 @@ yarn install
 ### 3. `.env` 파일 설정
 
 ```env
-BACKEND_ADDRESS=https://example.com
-GOOGLE_API_KEY=your_api_key
+VITE_BACKEND_ADDRESS=https://example.com
+VITE_GOOGLE_API_KEY=your_api_key
 ```
 
 * `https://example.com` : 프로토콜(`http` 또는 `https`)을 포함한 주소를 입력합니다. 주소 입력 후 `https://example.com/api/`와 같은 형태로 사용됩니다.
-* `GOOGLE_API_KEY` : 지도 API 호출에 필요합니다. Google Cloud Console에서 Maps Static API를 활성화했는지 확인하시고, 키를 발급 받아 사용하세요. (지원 예정)
+* `VITE_GOOGLE_API_KEY` : 지도 API 호출에 필요합니다. Google Cloud Console에서 Maps Static API를 활성화했는지 확인하시고, 키를 발급 받아 사용하세요.
 
 [!WARNING]
-> Travia_BE 저장소의 Google API 키는 Google AI Studio에서 발급 받으시고, 이곳의 API 키는 Google Cloud Console에서 발급 받으시기 바랍니다.
+> Travia_BE 저장소의 Google API 키는 Google AI Studio에서 발급 받으시고, 이곳의 API 키는 Google Cloud Console에서 발급 받으세요.
 
 ### 4. 
 
