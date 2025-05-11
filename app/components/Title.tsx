@@ -1,6 +1,6 @@
 export default function Title(props: { type: "h1" | "p", text: string, name?: string }) {
     return (
-        <section className="rounded-tl-lg rounded-br-lg bg-white w-full lg:w-64 p-4 border-slate-400 border-2">
+        <section className="rounded-tl-lg rounded-br-lg bg-white w-full lg:w-64 p-4 border-slate-400 border-2 shrink-0">
             {props.name ? (
                 <p className="text-2xl mb-2">
                     <span className="text-base block">안녕하세요,</span>

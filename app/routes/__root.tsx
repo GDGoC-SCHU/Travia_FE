@@ -32,7 +32,7 @@ export const Route = createRootRoute({
     ],
   }),
   component: RootComponent,
-  ssr: false
+  ssr: true
 })
 
 function RootComponent() {
@@ -51,7 +51,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       </head>
       <body>
         <Header />
-        <main className="p-4 flex gap-4 flex-wrap">
+        <main className="p-4 flex gap-4 flex-wrap lg:flex-nowrap">
           {children}
         </main>
         <Scripts />
