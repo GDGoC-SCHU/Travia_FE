@@ -7,8 +7,9 @@ import { AccordionContent } from '@radix-ui/react-accordion';
 import { createFileRoute, Link, redirect, useRouter } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start';
 import { getCookie, setCookie } from '@tanstack/react-start/server';
-import { CircleArrowLeft, CircleArrowRight, Coffee, CakeSlice, Pizza, Pyramid, FishSymbol, CircleEllipsis, FlameKindling, Leaf, Snowflake, Footprints, Armchair, Activity, TriangleAlert, ArrowLeftCircle, ArrowRightCircle, Home } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { CircleArrowLeft, CircleArrowRight, Coffee, CakeSlice, Pizza, Pyramid, FishSymbol, CircleEllipsis, FlameKindling, Leaf, Snowflake, Footprints, Armchair, Activity, TriangleAlert, ArrowLeftCircle, ArrowRightCircle, Home, LoaderCircle } from 'lucide-react';
+import { animate } from 'motion';
+import { Suspense, useRef, useState } from 'react';
 
 type Continent = "asia" | "europe" | "america" | "oceania" | "africa" | "어디든";
 type Environment = "warm" | "fresh" | "snowy";
@@ -119,10 +120,18 @@ async function RouteComponent() {
   const data = Route.useLoaderData();
   const [index, setIndex] = useState<number>(0);
 
-  console.log(data);
+  const circle = useRef(null);
+  if (circle.current) {
+    animate(circle.current, { rotate: 360 }, { duration: Infinity });
+  }
 
   return (
-    <>
+    <Suspense fallback={
+      <section className="w-screen h-full z-30 backdrop-blur-md">
+        <LoaderCircle className="accent-cyan-600" ref={circle} />
+        알려주신 내용을 바탕으로 고민하고 있어요
+      </section>
+    }>
     <Title type="h1" text="알려주신 내용을 바탕으로 추천드려요." name={data.name} />
     <CardSection>
     {data.error || !data.result.data ? (
@@ -151,19 +160,19 @@ async function RouteComponent() {
           <ArrowRightCircle size={48} />
         </Button>
       </div>
-      <div className="flex max-w-(--scrollable-max-width)">
-        <div className="pt-4 pe-4">
+      <div className="flex">
+        <div className="pt-4 grow shrink min-w-0">
           <h2 className="text-2xl">
             <span className="text-base block">
               {data.result.data[index].country}
             </span>
             {data.result.data[index].city}
           </h2>
-          <Accordion type="single" collapsible>
+          <Accordion type="single" collapsible className="lg:me-4">
             <AccordionItem value="reason">
-              <AccordionTrigger className="text-xl">📝 추천하는 이유!</AccordionTrigger>
-              <AccordionContent className="grow-0">
-                <p className="text-balance">{data.result.data[index].reason}</p>
+              <AccordionTrigger className="my-2 text-xl hover:bg-gray-50 px-4 hover:no-underline">📝 추천하는 이유!</AccordionTrigger>
+              <AccordionContent>
+                <p className="p-4 bg-blue-50 rounded-md">{data.result.data[index].reason}</p>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -182,8 +191,8 @@ async function RouteComponent() {
           ))}
           </div>
         </div>
-        <div className="hidden lg:block py-4">
-          <img src={`https://maps.googleapis.com/maps/api/staticmap?center=${data.result.data[index].country}+${data.result.data[index].city}&zoom=12&size=500x500&key=${import.meta.env.VITE_GOOGLE_API_KEY}`} alt={`${data.result.data[index].city} 지도`} className="rounded-xl" />
+        <div className="hidden lg:block py-4 shrink-0">
+          <img src={`https://maps.googleapis.com/maps/api/staticmap?center=${data.result.data[index].country}+${data.result.data[index].city}&zoom=12&size=250x250&key=${import.meta.env.VITE_GOOGLE_API_KEY}`} alt={`${data.result.data[index].city} 지도`} className="rounded-xl aspect-square" />
         </div>
       </div>
       </>
@@ -200,6 +209,6 @@ async function RouteComponent() {
       </Link>
     </div>
     </CardSection>
-    </>
+    </Suspense>
   )
 }
