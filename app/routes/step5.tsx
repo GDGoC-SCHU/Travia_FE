@@ -12,11 +12,14 @@ const getST = createServerFn({
 })
 .validator((data: {
   schedule: string,
+  budget: string,
   transport: "public_transport" | "car"
 }) => data)
 .handler(async (ctx) => {
   setCookie("schedule", ctx.data.schedule);
   setCookie("transport", ctx.data.transport);
+  setCookie("budget", ctx.data.budget);
+
   const name = getCookie("name");
   const travelWith = getCookie("travelWith");
   const actType = getCookie("actType");
@@ -45,14 +48,16 @@ export const Route = createFileRoute('/step5')({
   validateSearch: (search) =>
     search as {
       schedule: string,
+      budget: string,
       transport: "public_transport" | "car"
     },
-  loaderDeps: ({ search: { schedule, transport } }) => ({
-    schedule, transport
+  loaderDeps: ({ search: { schedule, budget, transport } }) => ({
+    schedule, budget, transport
   }),
-  loader: ({ deps: { schedule, transport } }) => (
+  loader: ({ deps: { schedule, budget, transport } }) => (
     getST({ data: {
       schedule: schedule,
+      budget: budget,
       transport: transport }
     })
   )

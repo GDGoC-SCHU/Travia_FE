@@ -85,6 +85,7 @@ function RouteComponent() {
         const formData = new FormData(e.currentTarget);
         const day = formData.get("day");
         const night = formData.get("night");
+        const budget = formData.get("amount");
         const transport = formData.get("transport");
 
         if (day && night && transport) {
@@ -92,7 +93,7 @@ function RouteComponent() {
           
           router.navigate({
             viewTransition: true,
-            href: `/step5?schedule=${schedule}&transport=${transport}`
+            href: `/step5?schedule=${schedule}&transport=${transport}&budget=${budget}`
           })
         }
       }}>
