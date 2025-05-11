@@ -82,7 +82,7 @@ function RouteComponent() {
 
   return (
     <>
-    <Title type="h1" text="마지막으로, 선호하는 환경을 말씀해 주세요!" name={data.name} />
+    <Title type="h1" text="Lastly, what is your favorite environment?" name={data.name} />
     <CardSection>
       <form className="flex flex-col gap-4 w-full lg:w-max" onSubmit={async (e) => {
         e.preventDefault();
@@ -98,10 +98,11 @@ function RouteComponent() {
           })
         }
       }}>
+        <p className="text-2xl border-b-2 border-cyan-600 w-fit">Continent</p>
         <div className="w-full max-w-(--scrollable-max-width) flex gap-2 overflow-scroll rounded-md">
-          <label htmlFor="asia" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={asia}>
+          <label htmlFor="asia" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 !whitespace-normal text-center ${ buttonVariants({ variant: "secondary" })}`} ref={asia}>
             <Coffee size={48} className="grow min-w-8" strokeWidth={1} />
-            아시아
+            Asia
           </label>
           <input name="continent" id="asia" value="asia" type="radio" className="hidden" onChange={async (e) => {
             if(e.target.checked) {
@@ -119,9 +120,9 @@ function RouteComponent() {
             }
           }}/>
 
-          <label htmlFor="europe" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={europe}>
+          <label htmlFor="europe" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 !whitespace-normal text-center ${ buttonVariants({ variant: "secondary" })}`} ref={europe}>
             <CakeSlice size={48} className="grow min-w-8" strokeWidth={1} />
-            유럽
+            Europe
           </label>
           <input name="continent" id="europe" value="europe" type="radio" className="hidden" onChange={async (e) => {
             if(e.target.checked) {
@@ -141,9 +142,9 @@ function RouteComponent() {
             }
           }}/>
 
-          <label htmlFor="america" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={america}>
+          <label htmlFor="america" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 !whitespace-normal text-center ${ buttonVariants({ variant: "secondary" })}`} ref={america}>
             <Pizza size={48} className="grow min-w-8" strokeWidth={1} />
-            미주
+            America
           </label>
           <input name="continent" id="america" value="america" type="radio" className="hidden" onChange={async (e) => {
             if(e.target.checked) {
@@ -163,9 +164,9 @@ function RouteComponent() {
             }
           }}/>
 
-          <label htmlFor="africa" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={africa}>
+          <label htmlFor="africa" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 !whitespace-normal text-center ${ buttonVariants({ variant: "secondary" })}`} ref={africa}>
             <Pyramid size={48} className="grow min-w-8" strokeWidth={1} />
-            아프리카
+            Africa
           </label>
           <input name="continent" id="africa" value="africa" type="radio" className="hidden" onChange={async (e) => {
             if(e.target.checked) {
@@ -185,9 +186,9 @@ function RouteComponent() {
             }
           }}/>
 
-          <label htmlFor="oceania" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={oceania}>
+          <label htmlFor="oceania" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 !whitespace-normal text-center ${ buttonVariants({ variant: "secondary" })}`} ref={oceania}>
             <FishSymbol size={48} className="grow min-w-8" strokeWidth={1} />
-            오세아니아
+            Oceania
           </label>
           <input name="continent" id="oceania" value="oceania" type="radio" className="hidden" onChange={async (e) => {
             if(e.target.checked) {
@@ -207,11 +208,11 @@ function RouteComponent() {
             }
           }}/>
 
-          <label htmlFor="others" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={cont_others}>
+          <label htmlFor="others" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 !whitespace-normal text-center ${ buttonVariants({ variant: "secondary" })}`} ref={cont_others}>
             <CircleEllipsis size={48} className="grow min-w-8" strokeWidth={1} />
-            어디든
+            Anywhere
           </label>
-          <input name="continent" id="others" value="어디든" type="radio" className="hidden" onChange={async (e) => {
+          <input name="continent" id="others" value="anywhere" type="radio" className="hidden" onChange={async (e) => {
             if(e.target.checked) {
               cont_others.current?.classList.remove("bg-secondary");
               cont_others.current?.classList.add("bg-sky-100");
@@ -230,12 +231,11 @@ function RouteComponent() {
           }}/>
         </div>
 
-        <p className="text-xl">지역의</p>
-        
+        <p className="text-2xl border-b-2 border-cyan-600 w-fit">Air Temporature</p>
         <div className="w-full max-w-(--scrollable-max-width) flex gap-2 overflow-scroll rounded-md">
-          <label htmlFor="warm" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 ${buttonVariants({ variant: "secondary" })}`} ref={warm}>
+          <label htmlFor="warm" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 !whitespace-normal text-center ${buttonVariants({ variant: "secondary" })}`} ref={warm}>
             <FlameKindling size={48} className="grow min-w-8" strokeWidth={1} />
-            따뜻한 곳
+            Warm
           </label>
           <input name="environment" id="warm" value="warm" type="radio" className="hidden" onChange={async (e) => {
             if (e.target.checked) {
@@ -249,9 +249,9 @@ function RouteComponent() {
             }
           }}/>
 
-          <label htmlFor="fresh" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 ${buttonVariants({ variant: "secondary" })}`} ref={fresh}>
+          <label htmlFor="fresh" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 !whitespace-normal text-center ${buttonVariants({ variant: "secondary" })}`} ref={fresh}>
             <Leaf size={48} className="grow min-w-8" strokeWidth={1} />
-            신선한 곳
+            Fresh
           </label>
           <input name="environment" id="fresh" value="fresh" type="radio" className="hidden" onChange={async (e) => {
             if (e.target.checked) {
@@ -265,9 +265,9 @@ function RouteComponent() {
             }
           }}/>
 
-          <label htmlFor="snowy" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 ${buttonVariants({ variant: "secondary" })}`} ref={snowy}>
+          <label htmlFor="snowy" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 !whitespace-normal text-center ${buttonVariants({ variant: "secondary" })}`} ref={snowy}>
             <Snowflake size={48} className="grow min-w-8" strokeWidth={1} />
-            눈 내리는 곳
+            Snowy and Cold
           </label>
           <input name="environment" id="snowy" value="snowy" type="radio" className="hidden" onChange={async (e) => {
             if (e.target.checked) {
@@ -281,14 +281,14 @@ function RouteComponent() {
             }
           }}/>
         </div>
-        <p className="text-xl">에서</p>
 
+        <p className="text-2xl border-b-2 border-cyan-600 w-fit">Travel...</p>
         <div className="w-full max-w-(--scrollable-max-width) flex gap-2 overflow-scroll rounded-md">
-          <label htmlFor="relaxed" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 ${buttonVariants({ variant: "secondary" })}`} ref={relaxed}>
+          <label htmlFor="relaxed" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 !whitespace-normal text-center ${buttonVariants({ variant: "secondary" })}`} ref={relaxed}>
             <Armchair size={48} className="grow min-w-8" strokeWidth={1} />
-            느긋하게
+            at your leisure
           </label>
-          <input name="pace" id="relaxed" value="느긋하게" type="radio" className="hidden" onChange={async (e) => {
+          <input name="pace" id="relaxed" value="relaxed" type="radio" className="hidden" onChange={async (e) => {
             if (e.target.checked) {
               relaxed.current?.classList.remove("bg-secondary");
               relaxed.current?.classList.add("bg-sky-100");
@@ -300,11 +300,11 @@ function RouteComponent() {
             }
           }}/>
 
-          <label htmlFor="moderate" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 ${buttonVariants({ variant: "secondary" })}`} ref={moderate}>
+          <label htmlFor="moderate" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 !whitespace-normal text-center ${buttonVariants({ variant: "secondary" })}`} ref={moderate}>
             <Footprints size={48} className="grow min-w-8" strokeWidth={1} />
-            적당히
+            in<br />moderation
           </label>
-          <input name="pace" id="moderate" value="적당히" type="radio" className="hidden" onChange={async (e) => {
+          <input name="pace" id="moderate" value="moderate" type="radio" className="hidden" onChange={async (e) => {
             if (e.target.checked) {
               moderate.current?.classList.remove("bg-secondary");
               moderate.current?.classList.add("bg-sky-100");
@@ -316,11 +316,11 @@ function RouteComponent() {
             }
           }}/>
 
-          <label htmlFor="active" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 ${buttonVariants({ variant: "secondary" })}`} ref={active}>
+          <label htmlFor="active" className={`hover:bg-sky-50 text-xl flex-col h-32 w-32 !whitespace-normal text-center ${buttonVariants({ variant: "secondary" })}`} ref={active}>
             <Activity size={48} className="grow min-w-8" strokeWidth={1} />
-            열심히
+            Actively<br />or busy
           </label>
-          <input name="pace" id="active" value="활동적으로" type="radio" className="hidden" onChange={async (e) => {
+          <input name="pace" id="active" value="active" type="radio" className="hidden" onChange={async (e) => {
             if (e.target.checked) {
               active.current?.classList.remove("bg-secondary");
               active.current?.classList.add("bg-sky-100");
@@ -332,15 +332,15 @@ function RouteComponent() {
             }
           }}/>
         </div>
-        <p className="text-xl">보내고 올래요.</p>
+        {/* <p className="text-xl">보내고 올래요.</p> */}
 
         <div className="flex justify-between">
           <Link to={`/step4`} search={{ act: data.actType.toString() }} className={ buttonVariants() }>
             <CircleArrowLeft />
-            이전 단계로
+            Back
           </Link>
           <Button type="submit">
-            결과 확인하기
+            Get our recommendation
             <CircleArrowRight />
           </Button>
         </div>

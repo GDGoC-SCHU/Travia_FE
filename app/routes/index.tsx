@@ -27,11 +27,11 @@ function Home() {
 
   return (
     <>
-    <Title type="p" text="지금부터 함께 여행 계획을 세워볼게요."/>
+    <Title type="p" text="Let's plan your travel!"/>
     <CardSection>
       <h1 className="text-2xl">
-        먼저,
-        <Label htmlFor="name" className="text-2xl">이름을 알려주세요.</Label>
+        First of all,
+        <Label htmlFor="name" className="text-2xl">tell your name to start.</Label>
       </h1>
       <form onSubmit={async (e) => {
         e.preventDefault();
@@ -43,15 +43,15 @@ function Home() {
         }
       }} className="w-fit">
         <div className="flex gap-2">
-          <Input type="text" id="name" placeholder="이름" className="text-lg" ref={name} onChange={(e) => setWarn(!Validation(e.target.value))} />
+          <Input type="text" id="name" placeholder="Name" className="text-lg" ref={name} onChange={(e) => setWarn(!Validation(e.target.value))} />
           <Button type="submit" className="text-xl items-center">
-            다음 단계로
+            Next
             <CircleArrowRight />
           </Button>
         </div>
-        {warn ? <p className="text-red-400 m-0.5">성함은 빈 칸으로 둘 수 없어요.</p> :null}
+        {warn ? <p className="text-red-400 m-0.5">Please enter your name.</p> :null}
       </form>
-      <Link to="/login" className="block text-cyan-600">이미 계정이 있나요? 지금 바로 로그인하세요.</Link>
+      <Link to="/login" className="block text-cyan-600">Already have an account? Click here to login.</Link>
     </CardSection>
     </>
   )

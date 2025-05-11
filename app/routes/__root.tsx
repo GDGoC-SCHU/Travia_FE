@@ -1,5 +1,5 @@
 // app/routes/__root.tsx
-import type { ReactNode } from 'react'
+import { Suspense, type ReactNode } from 'react'
 import {
   Outlet,
   createRootRoute,
@@ -9,6 +9,7 @@ import {
 
 import appCss from "@/styles/app.css?url";
 import Header from '@/components/Header';
+import { LoaderCircle } from 'lucide-react';
 
 export const Route = createRootRoute({
   head: () => ({
@@ -51,9 +52,16 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       </head>
       <body>
         <Header />
-        <main className="p-4 flex gap-4 flex-wrap lg:flex-nowrap">
-          {children}
-        </main>
+        <Suspense fallback={
+          <section className="w-screen h-full z-30 backdrop-blur-md">
+            <LoaderCircle className="accent-cyan-600" />
+            We're making recommendations for you...
+          </section>
+        }>
+          <main className="p-4 flex gap-4 flex-wrap lg:flex-nowrap">
+            {children}
+          </main>
+        </Suspense>
         <Scripts />
       </body>
     </html>

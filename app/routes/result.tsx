@@ -13,9 +13,9 @@ import { Suspense, useRef, useState } from 'react';
 import * as motion from "motion/react-client"
 import { AnimatePresence } from "motion/react"
 
-type Continent = "asia" | "europe" | "america" | "oceania" | "africa" | "어디든";
+type Continent = "asia" | "europe" | "america" | "oceania" | "africa" | "anywhere";
 type Environment = "warm" | "fresh" | "snowy";
-type Pace = "느긋하게" | "적당히" | "활동적으로";
+type Pace = "relaxed" | "moderate" | "active";
 
 const getResult = createServerFn({
   method: "GET",
@@ -123,23 +123,18 @@ async function RouteComponent() {
   const [index, setIndex] = useState<number>(0);
 
   return (
-    <Suspense fallback={
-      <section className="w-screen h-full z-30 backdrop-blur-md">
-        <LoaderCircle className="accent-cyan-600" />
-        알려주신 내용을 바탕으로 고민하고 있어요
-      </section>
-    }>
-    <Title type="h1" text="알려주신 내용을 바탕으로 추천드려요." name={data.name} />
+    <>
+    <Title type="h1" text="Recommends these cities based on your information." name={data.name} />
     <CardSection>
     {data.error || !data.result.data ? (
       <div className="text-center flex flex-col justify-center items-center">
       <h2 className="text-2xl">
         <TriangleAlert size={48} className="grow min-w-12" strokeWidth={1} />
-        서버에 문제가 발생했어요.
+        Server Error occured
       </h2>
       <p>
-        나중에 다시 시도해주세요. 계속해서 문제가 발생한다면,
-        <a href="https://github.com/GDGoC-SCHU/Travia_FE/issues">이슈트래커</a>에 제보할 수 있어요.
+        Try again later. If you encounter this error frequently,
+        <a href="https://github.com/GDGoC-SCHU/Travia_FE/issues">file a bug to the issue tracker</a>.
       </p>
       </div>
     ): (
@@ -167,7 +162,7 @@ async function RouteComponent() {
           </h2>
           <Accordion type="single" collapsible className="lg:me-4">
             <AccordionItem value="reason">
-              <AccordionTrigger className="my-2 text-xl hover:bg-gray-50 px-4 hover:no-underline">📝 추천하는 이유!</AccordionTrigger>
+              <AccordionTrigger className="my-2 text-xl hover:bg-gray-50 px-4 hover:no-underline">📝 Reasons to recommend!</AccordionTrigger>
               <AccordionContent>
                 <motion.p className="p-4 bg-blue-50 rounded-md"
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
@@ -180,7 +175,7 @@ async function RouteComponent() {
           <div className="max-w-(--scrollable-max-width) overflow-x-scroll flex gap-2 py-8 px-4 rounded-2xl">
           {Object.keys(data.result.data[index].schedule).map((day, idx) => (
             <Card className="shadow-xl p-4 shrink-0 w-6/7 lg:w-72" key={idx}>
-              <h3 className="text-xl">{day.split("_")[1]}일차</h3>
+              <h3 className="text-xl">Day {day.split("_")[1]}</h3>
               {data.result.data[index].schedule[day].map((ev : { time: string, activity: string }, idx: number) => (
                 <p key={idx}>
                   <span className="text-lg block">⌚ {ev.time}</span>
@@ -192,7 +187,9 @@ async function RouteComponent() {
           </div>
         </div>
         <div className="hidden lg:block py-4 shrink-0">
-          <img src={`https://maps.googleapis.com/maps/api/staticmap?center=${data.result.data[index].country}+${data.result.data[index].city}&zoom=12&size=250x250&key=${import.meta.env.VITE_GOOGLE_API_KEY}`} alt={`${data.result.data[index].city} 지도`} className="rounded-xl aspect-square" />
+          <motion.img initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.5 }}
+            src={`https://maps.googleapis.com/maps/api/staticmap?center=${data.result.data[index].country}+${data.result.data[index].city}&zoom=12&size=250x250&key=${import.meta.env.VITE_GOOGLE_API_KEY}`}
+            alt={`${data.result.data[index].city} 지도`} className="rounded-xl aspect-square" />
         </div>
       </div>
       </>
@@ -201,14 +198,14 @@ async function RouteComponent() {
       <Link to={`/step5`} className={ buttonVariants() }
         search={{ schedule: data.schedule, budget: data.budget, transport: data.transport }}>
         <CircleArrowLeft />
-        이전 단계로
+        Back
       </Link>
       <Link to={`/`} className={ buttonVariants() }>
         <Home />
-        처음으로
+        Go to the first page
       </Link>
     </div>
     </CardSection>
-    </Suspense>
+    </>
   )
 }

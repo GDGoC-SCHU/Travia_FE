@@ -27,18 +27,18 @@ const getName = createServerFn({
   }
 });
 
-export const travelWithType = (companion: string) => {
-  switch(companion) {
-    case "혼자":
-      return "혼자서"
-    case "친구":
-      return "친구와"
-    case "연인":
-      return "연인과"
-    case "가족":
-      return "가족과"
-  }
-}
+// export const travelWithType = (companion: string) => {
+//   switch(companion) {
+//     case "혼자":
+//       return "혼자서"
+//     case "친구":
+//       return "친구와"
+//     case "연인":
+//       return "연인과"
+//     case "가족":
+//       return "가족과"
+//   }
+// }
 
 export const Route = createFileRoute('/step3')({
   component: RouteComponent,
@@ -69,7 +69,7 @@ function RouteComponent() {
 
   return (
     <>
-    <Title type="h1" text="어떤 여행이 좋으신가요?" name={data.name} />
+    <Title type="h1" text="What is your favorite trip style?" name={data.name} />
     <CardSection>
       <form className="flex flex-col gap-4 w-full lg:w-max" onSubmit={async (e) => {
         e.preventDefault();
@@ -90,13 +90,13 @@ function RouteComponent() {
           href: `/step4?act=${types}`
         })
       }}>
-        <p className="text-xl">{travelWithType(data.travelWith)} {data.travelWith === "혼자" ? "":"함께"}</p>
+        <p className="text-xl">{data.travelWith === "single" ? "": `With ${data.travelWith},`} </p>
         <div className="w-full grid grid-cols-2 lg:flex gap-2 lg:flex-nowrap! flex-wrap grow">
-          <label htmlFor="heartful" className={`text-xl flex-col h-32 lg:w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={heartful}>
+          <label htmlFor="heartful" className={`text-xl flex-col h-32 lg:w-32 !whitespace-normal text-center ${ buttonVariants({ variant: "secondary" })}`} ref={heartful}>
             <MessageCircleHeart size={48} className="grow min-w-8" strokeWidth={1} />
-            감성
+            Heartful Stories
           </label>
-          <input name="type" id="heartful" value="감성" type="checkbox" className="hidden" onChange={async (e) => {
+          <input name="type" id="heartful" value="heartful" type="checkbox" className="hidden" onChange={async (e) => {
             if(e.target.checked && heartful.current) {
               heartful.current.classList.remove("bg-secondary");
               heartful.current.classList.remove("hover:bg-secondary/80");
@@ -111,11 +111,11 @@ function RouteComponent() {
             }
           }}/>
 
-          <label htmlFor="activity" className={`text-xl flex-col h-32 lg:w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={activities}>
+          <label htmlFor="activity" className={`text-xl flex-col h-32 lg:w-32 !whitespace-normal text-center ${ buttonVariants({ variant: "secondary" })}`} ref={activities}>
             <Milestone size={48} className="grow min-w-8" strokeWidth={1} />
-            액티비티
+            Lots of activities
           </label>
-          <input name="type" id="activity" value="활동" type="checkbox" className="hidden" onChange={async (e) => {
+          <input name="type" id="activity" value="activity" type="checkbox" className="hidden" onChange={async (e) => {
             if(e.target.checked && activities.current) {
               activities.current.classList.remove("bg-secondary");
               activities.current.classList.remove("hover:bg-secondary/80");
@@ -130,11 +130,11 @@ function RouteComponent() {
             }
           }}/>
 
-          <label htmlFor="food" className={`text-xl flex-col h-32 lg:w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={food}>
+          <label htmlFor="food" className={`text-xl flex-col h-32 lg:w-32 !whitespace-normal text-center ${ buttonVariants({ variant: "secondary" })}`} ref={food}>
             <UtensilsCrossed size={48} className="grow min-w-8" strokeWidth={1} />
-            먹방
+            Experience various foods
           </label>
-          <input name="type" id="food" value="먹방" type="checkbox" className="hidden" onChange={async (e) => {
+          <input name="type" id="food" value="food" type="checkbox" className="hidden" onChange={async (e) => {
             if(e.target.checked && food.current) {
               food.current.classList.remove("bg-secondary");
               food.current.classList.remove("hover:bg-secondary/80");
@@ -149,11 +149,11 @@ function RouteComponent() {
             }
           }}/>
 
-          <label htmlFor="culture" className={`text-xl flex-col h-32 lg:w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={culture}>
+          <label htmlFor="culture" className={`text-xl flex-col h-32 lg:w-32 !whitespace-normal text-center ${ buttonVariants({ variant: "secondary" })}`} ref={culture}>
             <Palette size={48} className="grow min-w-8" strokeWidth={1} />
-            문화체험
+            Cultural experiences
           </label>
-          <input name="type" id="culture" value="문화체험" type="checkbox" className="hidden" onChange={async (e) => {
+          <input name="type" id="culture" value="culture" type="checkbox" className="hidden" onChange={async (e) => {
             if(e.target.checked && culture.current) {
               culture.current.classList.remove("bg-secondary");
               culture.current.classList.remove("hover:bg-secondary/80");
@@ -168,7 +168,7 @@ function RouteComponent() {
             }
           }} />
 
-          <Button variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" ref={others} onClick={async (e) => {
+          <Button variant={"secondary"} className="text-xl flex-col h-32 lg:w-32 !whitespace-normal text-center" ref={others} onClick={async (e) => {
             if (others.current && othersForm.current) {
               await animate(others.current, { opacity: 0 }, { duration: 0.3 });
               await animate(othersForm.current, { opacity: 1 }, { duration: 0.3 });
@@ -177,14 +177,14 @@ function RouteComponent() {
             }
           }} type="button">
             <CircleEllipsis size={48} className="grow min-w-8" strokeWidth={1} />
-            기타
+            Others
           </Button>
 
           <div ref={othersForm} hidden className="h-32 flex flex-col justify-center border bg-sky-50 rounded-md p-2">
             <div className="flex justify-between">
               <label htmlFor="others" className="flex gap-1">
                 <CircleEllipsis strokeWidth={1} />
-                기타
+                Others
               </label>
               <button type="button" onClick={async (e) => {
                 if (others.current &&
@@ -196,20 +196,20 @@ function RouteComponent() {
                   others.current.hidden = false;
                   othersInput.current.value = "";
                 }
-              }} className="hover:bg-sky-100 rounded-md p-1">취소</button>
+              }} className="hover:bg-sky-100 rounded-md p-1">Cancel</button>
             </div>
-            <p className="text-sm">쉼표로 구분하여 다양한 스타일을 표현할 수 있어요.</p>
+            <p className="text-sm">Explain various styles using ','</p>
             <Input name="others" className="mt-2" ref={othersInput} />
           </div>
         </div>
-        <p className="text-xl">중심의 여행을 하고 싶어요.</p>
+        {/* <p className="text-xl">중심의 여행을 하고 싶어요.</p> */}
         <div className="flex justify-between">
           <Link to={`/step2`} search={{ name: data.name }} className={ buttonVariants() }>
             <CircleArrowLeft />
-            이전 단계로
+            Back
           </Link>
           <Button type="submit">
-            다 골랐어요
+            Well done!
             <CircleArrowRight />
           </Button>
         </div>

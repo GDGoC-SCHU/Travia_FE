@@ -43,7 +43,7 @@ function SecondStep() {
 
   return (
     <>
-    <Title type="h1" text="누구와 함께 하실 계획이신가요?" name={data.name} />
+    <Title type="h1" text="Tell me about your travelmate." name={data.name} />
     <CardSection>
       <form className="w-full lg:w-64 grid grid-cols-2 lg:flex gap-2 lg:flex-nowrap! flex-wrap" onSubmit={async (e) => {
         e.preventDefault();
@@ -57,27 +57,27 @@ function SecondStep() {
           });
         }
       }}>
-        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" onClick={(e) => selectType("혼자")}>
+        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32 whitespace-normal" onClick={(e) => selectType("single")}>
           <User size={48} className="grow min-w-8" strokeWidth={1} />
-          혼자
+          without travelmate
         </Button>
-        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" onClick={(e) => selectType("친구")}>
+        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32 whitespace-normal" onClick={(e) => selectType("friend")}>
           <Handshake size={48} className="grow min-w-8" strokeWidth={1} />
-          친구와
+          with<br /> friend
         </Button>
-        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" onClick={(e) => selectType("연인")}>
+        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32 whitespace-normal" onClick={(e) => selectType("sweetheart")}>
           <Heart size={48} className="grow min-w-8" strokeWidth={1} />
-          연인과
+          with sweetheart
         </Button>
-        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32" onClick={(e) => selectType("가족")}>
+        <Button type="submit" variant={"secondary"} className="text-xl flex-col h-32 lg:w-32 whitespace-normal" onClick={(e) => selectType("family")}>
           <Blend size={48} className="grow min-w-8" strokeWidth={1} />
-          가족과
+          with<br /> family
         </Button>
       </form>
       <div className="w-fit">
         <Link to="/" className={ buttonVariants() }>
           <CircleArrowLeft />
-          이전 단계로
+          Back
         </Link>
       </div>
     </CardSection>

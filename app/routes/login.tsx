@@ -13,15 +13,15 @@ export const Route = createFileRoute('/login')({
 function RouteComponent() {
   return (
     <>
-    <Title type="h1" text="여기에서 로그인하세요." />
+    <Title type="h1" text="Login here." />
     <CardSection>
       <form className="w-fit">
-        <Label htmlFor="name">이름</Label>
-        <Input type="text" id="name" className="text-lg mt-0.5 mb-2" />
-        <Label htmlFor="password">비밀번호</Label>
+        <Label htmlFor="email">Name</Label>
+        <Input type="email" id="email" className="text-lg mt-0.5 mb-2" required />
+        <Label htmlFor="password">Password</Label>
         <Input type="password" id="password" className="text-lg mt-0.5 mb-4" />
         <Button type="submit" className="text-xl items-center">
-          로그인
+          Login
           <CircleArrowRight />
         </Button>
       </form>

@@ -63,7 +63,7 @@ function RouteComponent() {
 
   return (
     <>
-    <Title type="h1" text="조금 더 구체적인 여행 계획도 들려주실 수 있나요?" name={data.name} />
+    <Title type="h1" text="Could you tell me about more details?" name={data.name} />
     <CardSection>
       <form className="flex flex-col gap-4 w-full lg:w-max" onSubmit={async (e) => {
         e.preventDefault();
@@ -74,33 +74,33 @@ function RouteComponent() {
         const transport = formData.get("transport");
 
         if (day && night && transport) {
-          const schedule = `${night}박 ${day}일`;
+          const schedule = `${night}night ${day}days`;
           
           router.navigate({
             viewTransition: true,
-            href: `/step5?schedule=${schedule}&transport=${transport}&budget=${budget}원`
+            href: `/step5?schedule=${schedule}&transport=${transport}&budget=${budget}KRW`
           })
         }
       }}>
-        <p className="text-2xl border-b-2 border-cyan-600 w-fit">기간과 일정은</p>
+        <p className="text-2xl border-b-2 border-cyan-600 w-fit">My budget and period is</p>
         <p className="flex text-2xl gap-1">
           <Input name="night" maxLength={2} className="w-12 text-2xl" required />
-          <label htmlFor="night">박</label>
+          <label htmlFor="night">Night(s)</label>
           <Input name="day" maxLength={2} className="w-12 text-2xl" required />
-          <label htmlFor="day">일간</label>
+          <label htmlFor="day">Day(s)</label>
         </p>
         <p className="flex text-2xl flex-wrap">
-          총
+          with
           <Input name="amount" inputMode="numeric" className="text-2xl max-w-40 mx-1" onChange={(e) => numberHelper(e)} />
-          <label htmlFor="amount">원</label>
-          <span className="block break-keep">을 예산으로 잡았어요.</span>
+          <label htmlFor="amount">Won(KRW)</label>
+          <span className="block break-keep"></span>
         </p>
 
-        <p className="text-2xl border-b-2 border-cyan-600 w-fit">이동할 때는</p>
+        <p className="text-2xl border-b-2 border-cyan-600 w-fit">While moving</p>
         <div className="w-full grid grid-cols-2 lg:flex gap-2 lg:flex-nowrap! flex-wrap grow">
           <label htmlFor="public_transport" className={`text-xl flex-col h-32 lg:w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={public_transport}>
             <TramFront size={48} className="grow min-w-8" strokeWidth={1} />
-            대중교통<br/>타고 가요
+            Take Public<br/>Transportation
           </label>
           <input name="transport" id="public_transport" value="public_transport" type="radio" className="hidden" onChange={async (e) => {
             if(e.target.checked && public_transport.current && car.current) {
@@ -119,7 +119,7 @@ function RouteComponent() {
 
           <label htmlFor="car" className={`text-xl flex-col h-32 lg:w-32 ${ buttonVariants({ variant: "secondary" })}`} ref={car}>
             <Car size={48} className="grow min-w-8" strokeWidth={1} />
-            직접<br />운전해요
+            Drive<br />a car
           </label>
           <input name="transport" id="car" value="car" type="radio" className="hidden" onChange={async (e) => {
             if(e.target.checked && car.current && public_transport.current) {
@@ -139,10 +139,10 @@ function RouteComponent() {
         <div className="flex justify-between">
           <Link to={`/step3`} search={{ travelWith: data.travelWith }} className={ buttonVariants() }>
             <CircleArrowLeft />
-            이전 단계로
+            Back
           </Link>
           <Button type="submit">
-            마지막으로
+            Last Step
             <CircleArrowRight />
           </Button>
         </div>
