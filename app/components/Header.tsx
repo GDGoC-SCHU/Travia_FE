@@ -18,6 +18,12 @@ export default function Header() {
             </NavigationMenuList>
             <NavigationMenuList>
                 <NavigationMenuItem>
+                    <Link to="/history" className="rounded-xl p-2 hover:bg-slate-100 text-xl text-cyan-600">
+                        History
+                    </Link>
+                    <Link to="/login" className="rounded-xl p-2 hover:bg-slate-100 text-xl text-cyan-600">
+                        Login
+                    </Link>
                     {/* <a href="https://github.com/GDGoC-SCHU/Travia_FE" target="_blank" className="rounded-xl p-2 hover:bg-slate-100 block">
                         <Code />
                     </a> */}

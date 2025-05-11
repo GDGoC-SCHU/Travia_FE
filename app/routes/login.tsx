@@ -16,10 +16,10 @@ function RouteComponent() {
     <Title type="h1" text="Login here." />
     <CardSection>
       <form className="w-fit">
-        <Label htmlFor="email">Name</Label>
-        <Input type="email" id="email" className="text-lg mt-0.5 mb-2" required />
+        <Label htmlFor="name">Nickname</Label>
+        <Input type="text" id="name" className="text-lg mt-0.5 mb-2" required />
         <Label htmlFor="password">Password</Label>
-        <Input type="password" id="password" className="text-lg mt-0.5 mb-4" />
+        <Input type="password" id="password" className="text-lg mt-0.5 mb-4" required />
         <Button type="submit" className="text-xl items-center">
           Login
           <CircleArrowRight />

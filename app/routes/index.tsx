@@ -33,6 +33,7 @@ function Home() {
         First of all,
         <Label htmlFor="name" className="text-2xl">tell your name to start.</Label>
       </h1>
+      <p>To save the result, use unique nicknames before go to the next step.</p>
       <form onSubmit={async (e) => {
         e.preventDefault();
         if (name.current && Validation(name.current.value)) {
