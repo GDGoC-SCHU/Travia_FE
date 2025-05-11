@@ -1,129 +1,123 @@
 # 🌍 Travia
 
-**AI 여행 성향 기반 세계 여행지 + 일정 추천 서비스**  
-> 간단한 설문으로 당신의 여행 성향을 분석하고,  
-> AI가 전 세계 여행지와 일정 루트를 자동으로 추천해주는 웹앱 서비스
+**Suggest global cities and schedules by filling the form, based on AI**  
+> Fill a simple form to analyze your travel style, and then
+> AI will suggest you where to travel and go.
 
 ---
 
-## 🔨 프로젝트 설정
+## 🔨 Setup Project
 
-### 0. 사전 설치 요소
+### 0. Requirements
 
 - Node.js 22 or higher
-  - `npm`으로의 실행은 테스트되지 않았으므로, 설정 전 `corepack enable` 명령어로 `npm` 이외 패키지 매니저를 쉽게 사용할 수 있도록 설정하는 것을 추천합니다.
+  - Run project via `npm` is not tested, please run `corepack enable` to enable other package managers except `npm`
 - Git latest
-- `.env` 파일을 작성할 수 있는 텍스트 에디터
+- Text editor to modify `.env` file.
 
-### 1. 저장소 복제
+### 1. Clone repository
 
 ```bash
 git clone https://github.com/GDGoC-SCHU/Travia_FE/
 ```
 
-### 2. 패키지 설치
+### 2. Install packages
 
-- 패키지 매니저 최신 버전 설치
+- Install latest version of package manager:
 
 ```bash
 yarn set version stable
 ```
 
-- 패키지 설치
+- Install required packages:
 
 ```bash
 yarn install
 ```
 
-### 3. `.env` 파일 설정
+### 3. Write `.env` file
 
 ```env
 VITE_BACKEND_ADDRESS=https://example.com
 VITE_GOOGLE_API_KEY=your_api_key
 ```
 
-* `https://example.com` : 프로토콜(`http` 또는 `https`)을 포함한 주소를 입력합니다. 주소 입력 후 `https://example.com/api/`와 같은 형태로 사용됩니다.
-* `VITE_GOOGLE_API_KEY` : 지도 API 호출에 필요합니다. Google Cloud Console에서 Maps Static API를 활성화했는지 확인하시고, 키를 발급 받아 사용하세요.
+* `https://example.com` : Includes protocol(`http` or `https`). Will formed like `https://example.com/api/`.
+* `VITE_GOOGLE_API_KEY` : Needs to get static map image. Activate Maps Static API from Google Cloud Console, and get your API key.
 
 [!WARNING]
-> Travia_BE 저장소의 Google API 키는 Google AI Studio에서 발급 받으시고, 이곳의 API 키는 Google Cloud Console에서 발급 받으세요.
+> If you want to setup Travia_BE too, get your Gemini API key from Google AI Studio and apply to Travia_BE's `.env` file.
+> Gemini key will not work in `.env` file here.
 
-### 4. 
-
-1. 본 저장소를  명령어로 복제합니다.
-2. `corepack enable` 명령어로 `npm` 이외의 패키지 매니저를 쉽게 사용할 수 있도록 설정합니다.
-3. `` 명령어로 최신 버전이 설치되어 있는지 확인하고, 설치되어 있지 않다면 설치되도록 합니다.
-4. `.env` 파일을 생
-5. `yarn install` 명령어로 패키지를 설치하고, `yarn run dev`로 정상 실행 여부를 확인합니다. 일반적으로 개발 서버의 기본 주소는 `localhost:3000`이며, 다른 서버가 포트를 사용 중인 경우 다른 포트를 사용하거나 실행이 실패할 수 있습니다.
+### 4. `yarn run dev` to test if it works.
 
 ---
 
-## 🏷️ 커밋 타입 가이드
+## 🏷️ Commit type guides
 
-| 타입 | 설명           | 예시                                  |
+| Type | Description           | Example                                  |
 |------|----------------|---------------------------------------|
-| feat | 새로운 기능 추가 | `feat: 설문 결과 페이지 구성 추가`     |
-| fix  | 버그 수정       | `fix: 일정 추천 시 null 응답 처리`     |
-| docs | 주석 및 문서     | `docs: README에 OSS 라이센스 추가` |
+| feat | Added new feature | `feat: add result page`     |
+| fix  | Fix a bug       | `fix: request infinitely`     |
+| docs | Comments and documentation     | `docs: add OSS license to README` |
 
 ---
 
-## 📌 프로젝트 개요
+## 📌 Project Summary
 
-**Travia**는 여행을 계획하는 사용자에게  
-AI(Gemini)를 활용해 여행 성향에 맞는 도시를 추천하고,  
-사용자의 여행 기간에 맞춰 **일자별 여행 일정표**를 자동 생성해주는 웹앱입니다.
+**Travia** automatically suggests global cities
+and **day-by-day schedule** by travel styles and period,
+for users who plan a travel, using the AI(Gemini)
 
 ---
 
-## 🧠 핵심 기술
+## 🧠 Technologies
 
-| 파트 | 기술 스택 |
+| Part | Framework and Technologies |
 |------|-----------|
 | Frontend | **Tanstack Start + React**, TypeScript |
 | Backend | **FastAPI**, **MySQL** |
 | AI | **Gemini API (Google Generative AI)** |
-| 기타 | JSON 통신, Docker (컨테이너화), 환경변수 관리 등 |
+| Others | JSON, Docker (containerize), managing environement variables, etc. |
 
 ---
 
-## ✨ 주요 기능
+## ✨ Key Features
 
-- ✅ 간단한 단답형 설문 입력 (카드 UI + 예시 제시)
-- ✅ 사용자 성향 기반 세계 여행지 2~3곳 추천
-- ✅ 입력한 여행 **기간에 맞춰 하루 3개 장소 일정표 자동 생성**
-- ✅ 카드 형식의 결과 출력 UI
-- ✅ 전체 프로젝트는 웹앱으로 진행 (반응형 UI 예정)
-- ✅ 개발 단계에서는 Docker 컨테이너화, 배포는 추후 확정
+- ✅ Simple form (Card UI + Icons)
+- ✅ Suggests up to 3 global cities
+- ✅ Automatically **generate day-by-day schedule by period**
+- ✅ Card-formed result UI
+- ✅ Web Application with responsive UI
+- ✅ Develop with Docker container
 
 ---
 
-## 📝 설문 항목
+## 📝 Survey From
 
-사용자는 아래 항목을 단답형으로 입력합니다.  
-질문 아래에 예시를 표시해 사용자 편의를 고려합니다.
+Users respond these entries by select or type.
 
-| 항목 | 설명 |
+| Entries | Description |
 |------|------|
-| 동행 | 혼자 / 친구 / 연인 / 가족 |
-| 여행 스타일 | 감성 / 액티비티 / 먹방 / 문화 체험 등 (복수 가능) |
-| 여행 기간 | 예: 3박 4일 (입력값에 따라 일정 수 자동 계산) |
-| 운전 여부 | 가능 / 대중교통 이용 |
-| 예산 | 대략적인 총 금액 입력 |
-| 선호 기후 | 따뜻한 곳 / 선선한 곳 / 눈 내리는 곳 등 |
-| 대륙 선호 | 아시아 / 유럽 / 미주 / 상관없음 |
-| 하루 활동 밀도 | 느긋하게 / 적당히 / 빡세게 |
+| Travelmate | without travelmate / friend / sweetheart / family |
+| What to experience | heartful stories / lots of activities / delicious foods / cultural experience, etc. |
+| Trip duration | example: 3 Nights, 4 Days. |
+| Transportation | Drive a car / Take public transportation |
+| Budget | Set your budget |
+| Preffered temporature | Warm / Fresh / Snowy and Cold, etc. |
+| Preffered Continent | Asia / Europe / America / Anywhere, etc. |
+| Activity density per day | at your leisure / in moderation / active and busy |
 
 ---
 
-## 💾 Gemini 응답 포맷 예시 (JSON)
+## 💾 Example of Gemini Response Format (JSON)
 
 ```json
 {
   "recommendations": [
     {
-      "city": "바르셀로나",
-      "country": "스페인",
+      "city": "Barcelona",
+      "country": "Spain",
       "reason": "감성적이고 호주 여행하기 좋은 분위기, 따뜻한 기후와 맛집이 풍림",
       "schedule": {
         "day_1": [
