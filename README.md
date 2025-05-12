@@ -93,7 +93,7 @@ for users who plan a travel, using the AI(Gemini)
 
 ---
 
-## 📝 Survey From
+## 📝 Survey Form
 
 Users respond these entries by select or type.
 
