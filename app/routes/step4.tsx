@@ -40,20 +40,6 @@ function numberHelper(e: React.ChangeEvent<HTMLInputElement>) {
   e.target.value = numberArray.join("");  
 }
 
-export const Route = createFileRoute('/step4')({
-  component: RouteComponent,
-  validateSearch: (search) =>
-    search as {
-      act: string
-    },
-  loaderDeps: ({ search: { act } }) => ({
-    act,
-  }),
-  loader: ({ deps: { act } }) => (
-    getAct({ data: act })
-  )
-})
-
 function RouteComponent() {
   const data = Route.useLoaderData();
   const router = useRouter();
@@ -151,3 +137,18 @@ function RouteComponent() {
     </>
   )
 }
+
+export const Route = createFileRoute('/step4')({
+  component: RouteComponent,
+  validateSearch: (search) =>
+    search as {
+      act: string
+    },
+  loaderDeps: ({ search: { act } }) => ({
+    act,
+  }),
+  loader: ({ deps: { act } }) => (
+    getAct({ data: act })
+  )
+})
+
