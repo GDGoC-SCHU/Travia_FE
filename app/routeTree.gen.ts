@@ -15,6 +15,7 @@ import { Route as Step5Import } from './routes/step5'
 import { Route as Step4Import } from './routes/step4'
 import { Route as Step3Import } from './routes/step3'
 import { Route as Step2Import } from './routes/step2'
+import { Route as SignupImport } from './routes/signup'
 import { Route as ResultImport } from './routes/result'
 import { Route as LoginImport } from './routes/login'
 import { Route as HistoryImport } from './routes/history'
@@ -43,6 +44,12 @@ const Step3Route = Step3Import.update({
 const Step2Route = Step2Import.update({
   id: '/step2',
   path: '/step2',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SignupRoute = SignupImport.update({
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -102,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResultImport
       parentRoute: typeof rootRoute
     }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupImport
+      parentRoute: typeof rootRoute
+    }
     '/step2': {
       id: '/step2'
       path: '/step2'
@@ -140,6 +154,7 @@ export interface FileRoutesByFullPath {
   '/history': typeof HistoryRoute
   '/login': typeof LoginRoute
   '/result': typeof ResultRoute
+  '/signup': typeof SignupRoute
   '/step2': typeof Step2Route
   '/step3': typeof Step3Route
   '/step4': typeof Step4Route
@@ -151,6 +166,7 @@ export interface FileRoutesByTo {
   '/history': typeof HistoryRoute
   '/login': typeof LoginRoute
   '/result': typeof ResultRoute
+  '/signup': typeof SignupRoute
   '/step2': typeof Step2Route
   '/step3': typeof Step3Route
   '/step4': typeof Step4Route
@@ -163,6 +179,7 @@ export interface FileRoutesById {
   '/history': typeof HistoryRoute
   '/login': typeof LoginRoute
   '/result': typeof ResultRoute
+  '/signup': typeof SignupRoute
   '/step2': typeof Step2Route
   '/step3': typeof Step3Route
   '/step4': typeof Step4Route
@@ -176,6 +193,7 @@ export interface FileRouteTypes {
     | '/history'
     | '/login'
     | '/result'
+    | '/signup'
     | '/step2'
     | '/step3'
     | '/step4'
@@ -186,6 +204,7 @@ export interface FileRouteTypes {
     | '/history'
     | '/login'
     | '/result'
+    | '/signup'
     | '/step2'
     | '/step3'
     | '/step4'
@@ -196,6 +215,7 @@ export interface FileRouteTypes {
     | '/history'
     | '/login'
     | '/result'
+    | '/signup'
     | '/step2'
     | '/step3'
     | '/step4'
@@ -208,6 +228,7 @@ export interface RootRouteChildren {
   HistoryRoute: typeof HistoryRoute
   LoginRoute: typeof LoginRoute
   ResultRoute: typeof ResultRoute
+  SignupRoute: typeof SignupRoute
   Step2Route: typeof Step2Route
   Step3Route: typeof Step3Route
   Step4Route: typeof Step4Route
@@ -219,6 +240,7 @@ const rootRouteChildren: RootRouteChildren = {
   HistoryRoute: HistoryRoute,
   LoginRoute: LoginRoute,
   ResultRoute: ResultRoute,
+  SignupRoute: SignupRoute,
   Step2Route: Step2Route,
   Step3Route: Step3Route,
   Step4Route: Step4Route,
@@ -239,6 +261,7 @@ export const routeTree = rootRoute
         "/history",
         "/login",
         "/result",
+        "/signup",
         "/step2",
         "/step3",
         "/step4",
@@ -256,6 +279,9 @@ export const routeTree = rootRoute
     },
     "/result": {
       "filePath": "result.tsx"
+    },
+    "/signup": {
+      "filePath": "signup.tsx"
     },
     "/step2": {
       "filePath": "step2.tsx"

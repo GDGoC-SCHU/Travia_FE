@@ -57,7 +57,7 @@ const getResult = createServerFn({
   }
 })
 .handler(async (ctx) => {
-  const resultResponse = await fetch(`${import.meta.env.VITE_BACKEND_ADDRESS}/api/v1/survey/recommend`, {
+  const resultResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/survey/recommend`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -67,7 +67,7 @@ const getResult = createServerFn({
       "username": ctx.data.name,
       "preferences": {
         "companion": ctx.data.travelWith,
-        "style": ctx.data.actType,
+        "style": Array.isArray(ctx.data.actType) ? ctx.data.actType : [ctx.data.actType], // ✅ 여기를 배열로 보장
         "duration": ctx.data.schedule,
         "budget": ctx.data.budget,
         "climate": ctx.data.env,

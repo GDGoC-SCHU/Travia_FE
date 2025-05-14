@@ -30,16 +30,16 @@ function Home() {
     <Title type="p" text="Let's plan your travel!"/>
     <CardSection>
       <h1 className="text-2xl">
-        First of all,
-        <Label htmlFor="name" className="text-2xl">tell your name to start.</Label>
+        To begin signing up,
+        <Label htmlFor="name" className="text-2xl">please enter your name.</Label>
       </h1>
-      <p>To save the result, use unique nicknames before go to the next step.</p>
+      {/* <p>To save the result, use unique nicknames before go to the next step.</p> */}
       <form onSubmit={async (e) => {
         e.preventDefault();
         if (name.current && Validation(name.current.value)) {
           router.navigate({
             viewTransition: true,
-            href: `/step2?name=${name.current.value}`
+            href: `/signup?name=${name.current.value}`
           })
         }
       }} className="w-fit">
@@ -52,7 +52,7 @@ function Home() {
         </div>
         {warn ? <p className="text-red-400 m-0.5">Please enter your name.</p> :null}
       </form>
-      <Link to="/login" className="block text-cyan-600">Already have an account? Click here to login.</Link>
+      {/* <Link to="/login" className="block text-cyan-600">Already have an account? Click here to login.</Link> */}
     </CardSection>
     </>
   )
