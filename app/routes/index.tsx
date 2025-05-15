@@ -5,8 +5,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { CircleArrowRight } from 'lucide-react'
 import { useRef, useState } from 'react'
-import Title from '@/components/Title'
 import CardSection from '@/components/CardSection'
+import { titleInfo } from './__root'
 
 export const Route = createFileRoute('/')({
   component: Home,
@@ -25,9 +25,15 @@ function Home() {
   const [warn, setWarn] = useState<boolean>(false);
   const name = useRef<HTMLInputElement|null>(null);
 
+  titleInfo.setState((state) => {
+    return {
+      ...state,
+      type: "p",
+      text: "Let's plan your travel!"
+    }
+  });
+
   return (
-    <>
-    <Title type="p" text="Let's plan your travel!"/>
     <CardSection>
       <h1 className="text-2xl">
         To begin signing up,
@@ -39,7 +45,7 @@ function Home() {
         if (name.current && Validation(name.current.value)) {
           router.navigate({
             viewTransition: true,
-            href: `/signup?name=${name.current.value}`
+            href: `/step2?name=${name.current.value}`
           })
         }
       }} className="w-fit">
@@ -52,8 +58,7 @@ function Home() {
         </div>
         {warn ? <p className="text-red-400 m-0.5">Please enter your name.</p> :null}
       </form>
-      {/* <Link to="/login" className="block text-cyan-600">Already have an account? Click here to login.</Link> */}
+      <Link to="/login" className="block text-cyan-600">Already have an account? Click here to login.</Link>
     </CardSection>
-    </>
   )
 }

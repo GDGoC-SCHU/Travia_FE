@@ -1,10 +1,10 @@
 import CardSection from '@/components/CardSection';
-import Title from '@/components/Title';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { createFileRoute, Link, redirect, useNavigate, useRouter } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start';
 import { setCookie } from '@tanstack/react-start/server';
 import { Blend, CircleArrowLeft, Handshake, Heart, User } from 'lucide-react';
+import { titleInfo } from './__root';
 
 const getName = createServerFn({
   method: "GET",
@@ -41,9 +41,15 @@ function SecondStep() {
   const data = Route.useLoaderData();
   const router = useRouter();
 
+  titleInfo.setState((state) => {
+    return {
+    ...state,
+    type: "h1",
+    text: "Tell me about your travelmate.",
+    name: data.name
+  }});
+
   return (
-    <>
-    <Title type="h1" text="Tell me about your travelmate." name={data.name} />
     <CardSection>
       <form className="w-full lg:w-64 grid grid-cols-2 lg:flex gap-2 lg:flex-nowrap! flex-wrap" onSubmit={async (e) => {
         e.preventDefault();
@@ -81,6 +87,5 @@ function SecondStep() {
         </Link>
       </div>
     </CardSection>
-    </>
   )
 }

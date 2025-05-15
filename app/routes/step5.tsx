@@ -6,6 +6,7 @@ import { createServerFn } from '@tanstack/react-start';
 import { getCookie, setCookie } from '@tanstack/react-start/server';
 import { CircleArrowLeft, CircleArrowRight, Coffee, CakeSlice, Pizza, Pyramid, FishSymbol, CircleEllipsis, FlameKindling, Leaf, Snowflake, Footprints, Armchair, Activity } from 'lucide-react';
 import { useRef } from 'react';
+import { titleInfo } from './__root';
 
 const getST = createServerFn({
   method: "GET",
@@ -80,9 +81,15 @@ function RouteComponent() {
   const moderate = useRef<HTMLLabelElement>(null);
   const active = useRef<HTMLLabelElement>(null);
 
+  titleInfo.setState((state) => {
+    return {
+      ...state,
+      type: "h1",
+      text: "Lastly, what is your favorite environment?"
+    }
+  })
+
   return (
-    <>
-    <Title type="h1" text="Lastly, what is your favorite environment?" name={data.name} />
     <CardSection>
       <form className="flex flex-col gap-4 w-full lg:w-max" onSubmit={async (e) => {
         e.preventDefault();
@@ -346,6 +353,5 @@ function RouteComponent() {
         </div>
       </form>
     </CardSection>
-    </>
   )
 }

@@ -1,11 +1,11 @@
 import { createFileRoute, useRouter } from '@tanstack/react-router';
 import CardSection from '@/components/CardSection';
-import Title from '@/components/Title';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { CircleArrowRight } from 'lucide-react';
 import { useState } from 'react';
+import { titleInfo } from './__root';
 
 export const Route = createFileRoute('/login')({
   component: RouteComponent,
@@ -31,9 +31,16 @@ function RouteComponent() {
     }
   };
 
+  titleInfo.setState((state) => {
+    return {
+      ...state,
+      type: "h1",
+      text: "Login here."
+    }
+  });
+
   return (
     <>
-      <Title type="h1" text="Login here." />
       <CardSection>
         <form className="w-fit" onSubmit={handleLogin}>
           <Label>Nickname</Label>

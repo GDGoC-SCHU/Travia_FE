@@ -8,6 +8,7 @@ import { getCookie, setCookie } from '@tanstack/react-start/server';
 import { CircleArrowLeft, Palette, MessageCircleHeart, Milestone, UtensilsCrossed, CircleArrowRight, CircleEllipsis } from 'lucide-react';
 import { useRef } from 'react';
 import { animate } from "motion";
+import { titleInfo } from './__root';
 
 const getName = createServerFn({
   method: "GET",
@@ -67,9 +68,15 @@ function RouteComponent() {
   const othersForm = useRef<HTMLDivElement>(null);
   const othersInput = useRef<HTMLInputElement>(null);
 
+  titleInfo.setState((state) => {
+    return {
+      ...state,
+      type: "h1",
+      text: "What is your favorite trip style?"
+    }
+  })
+
   return (
-    <>
-    <Title type="h1" text="What is your favorite trip style?" name={data.name} />
     <CardSection>
       <form className="flex flex-col gap-4 w-full lg:w-max" onSubmit={async (e) => {
         e.preventDefault();
@@ -215,6 +222,5 @@ function RouteComponent() {
         </div>
       </form>
     </CardSection>
-    </>
   )
 }

@@ -1,17 +1,15 @@
 import CardSection from '@/components/CardSection';
-import Title from '@/components/Title';
 import { Accordion, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { AccordionContent } from '@radix-ui/react-accordion';
-import { createFileRoute, Link, redirect, useRouter } from '@tanstack/react-router'
+import { createFileRoute, Link, redirect } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start';
-import { getCookie, setCookie } from '@tanstack/react-start/server';
+import { getCookie } from '@tanstack/react-start/server';
 import { CircleArrowLeft, CircleArrowRight, Coffee, CakeSlice, Pizza, Pyramid, FishSymbol, CircleEllipsis, FlameKindling, Leaf, Snowflake, Footprints, Armchair, Activity, TriangleAlert, ArrowLeftCircle, ArrowRightCircle, Home, LoaderCircle } from 'lucide-react';
-import { animate } from 'motion';
 import { Suspense, useRef, useState } from 'react';
 import * as motion from "motion/react-client"
-import { AnimatePresence } from "motion/react"
+import { titleInfo } from './__root';
 
 type Continent = "asia" | "europe" | "america" | "oceania" | "africa" | "anywhere";
 type Environment = "warm" | "fresh" | "snowy";
@@ -57,7 +55,7 @@ const getResult = createServerFn({
   }
 })
 .handler(async (ctx) => {
-  const resultResponse = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/survey/recommend`, {
+  const resultResponse = await fetch(`${import.meta.env.VITE_BACKEND_ADDRESS}/api/v1/survey/recommend`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -122,9 +120,14 @@ async function RouteComponent() {
   const data = Route.useLoaderData();
   const [index, setIndex] = useState<number>(0);
 
+  titleInfo.setState((state) => {
+    return {
+    ...state,
+    type: "h1",
+    text: "Recommends these cities based on your information.",
+  }});
+
   return (
-    <>
-    <Title type="h1" text="Recommends these cities based on your information." name={data.name} />
     <CardSection>
     {data.error || !data.result.data ? (
       <div className="text-center flex flex-col justify-center items-center">
@@ -206,6 +209,5 @@ async function RouteComponent() {
       </Link>
     </div>
     </CardSection>
-    </>
   )
 }

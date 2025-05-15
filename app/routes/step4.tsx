@@ -8,6 +8,7 @@ import { getCookie, setCookie } from '@tanstack/react-start/server';
 import { CircleArrowLeft, CircleArrowRight, Car, TramFront } from 'lucide-react';
 import { useRef } from 'react';
 import { animate, number } from "motion";
+import { titleInfo } from './__root';
 
 const getAct = createServerFn({
   method: "GET",
@@ -47,9 +48,15 @@ function RouteComponent() {
   const public_transport = useRef<HTMLLabelElement>(null);
   const car = useRef<HTMLLabelElement>(null);
 
+  titleInfo.setState((state) => {
+    return {
+      ...state,
+      type: "h1",
+      text: "Could you tell me about more details?"
+    }
+  })
+
   return (
-    <>
-    <Title type="h1" text="Could you tell me about more details?" name={data.name} />
     <CardSection>
       <form className="flex flex-col gap-4 w-full lg:w-max" onSubmit={async (e) => {
         e.preventDefault();
@@ -134,7 +141,6 @@ function RouteComponent() {
         </div>
       </form>
     </CardSection>
-    </>
   )
 }
 

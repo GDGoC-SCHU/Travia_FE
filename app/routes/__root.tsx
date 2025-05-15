@@ -7,9 +7,22 @@ import {
   Scripts,
 } from '@tanstack/react-router'
 
+import { Store } from "@tanstack/react-store";
+
 import appCss from "@/styles/app.css?url";
 import Header from '@/components/Header';
 import { LoaderCircle } from 'lucide-react';
+import Title from '@/components/Title';
+
+export const titleInfo = new Store<{
+  type: "h1" | "p",
+  text: string,
+  name: undefined | string
+}>({
+  type: "p",
+  text: "Let's plan your travel!",
+  name: undefined
+});
 
 export const Route = createRootRoute({
   head: () => ({
@@ -59,6 +72,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
           </section>
         }>
           <main className="p-4 flex gap-4 flex-wrap lg:flex-nowrap">
+            <Title info={titleInfo} />
             {children}
           </main>
         </Suspense>
