@@ -1,5 +1,5 @@
 // app/routes/__root.tsx
-import { Suspense, type ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import {
   Outlet,
   createRootRoute,
@@ -11,7 +11,6 @@ import { Store } from "@tanstack/react-store";
 
 import appCss from "@/styles/app.css?url";
 import Header from '@/components/Header';
-import { LoaderCircle } from 'lucide-react';
 import Title from '@/components/Title';
 
 export const titleInfo = new Store<{
@@ -65,17 +64,10 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       </head>
       <body>
         <Header />
-        <Suspense fallback={
-          <section className="w-screen h-full z-30 backdrop-blur-md">
-            <LoaderCircle className="accent-cyan-600" />
-            We're making recommendations for you...
-          </section>
-        }>
-          <main className="p-4 flex gap-4 flex-wrap lg:flex-nowrap">
-            <Title info={titleInfo} />
-            {children}
-          </main>
-        </Suspense>
+        <main className="p-4 flex gap-4 flex-wrap lg:flex-nowrap">
+          <Title info={titleInfo} />
+          {children}
+        </main>
         <Scripts />
       </body>
     </html>
