@@ -8,6 +8,15 @@ import { useRef, useState } from 'react'
 import CardSection from '@/components/CardSection'
 import { titleInfo } from './__root'
 
+titleInfo.setState((state) => {
+  return {
+    ...state,
+    type: "p",
+    text: "Let's plan your travel!"
+  }
+});
+
+
 export const Route = createFileRoute('/')({
   component: Home,
 });
@@ -24,14 +33,6 @@ function Home() {
   const router = useRouter();
   const [warn, setWarn] = useState<boolean>(false);
   const name = useRef<HTMLInputElement|null>(null);
-
-  titleInfo.setState((state) => {
-    return {
-      ...state,
-      type: "p",
-      text: "Let's plan your travel!"
-    }
-  });
 
   return (
     <CardSection>

@@ -13,6 +13,14 @@ const getName = createServerFn({
 .handler(async (ctx) => {
   setCookie("name", ctx.data);
 
+  titleInfo.setState((state) => {
+    return {
+    ...state,
+    type: "h1",
+    text: "Tell me about your travelmate.",
+    name: ctx.data
+  }});
+
   return {
     name: ctx.data
   }
@@ -38,16 +46,7 @@ export const Route = createFileRoute('/step2')({
 });
 
 function SecondStep() {
-  const data = Route.useLoaderData();
   const router = useRouter();
-
-  titleInfo.setState((state) => {
-    return {
-    ...state,
-    type: "h1",
-    text: "Tell me about your travelmate.",
-    name: data.name
-  }});
 
   return (
     <CardSection>

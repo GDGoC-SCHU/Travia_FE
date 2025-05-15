@@ -21,6 +21,14 @@ const getST = createServerFn({
   setCookie("transport", ctx.data.transport);
   setCookie("budget", ctx.data.budget);
 
+  titleInfo.setState((state) => {
+    return {
+      ...state,
+      type: "h1",
+      text: "Lastly, what is your favorite environment?"
+    }
+  });
+
   const name = getCookie("name");
   const travelWith = getCookie("travelWith");
   const actType = getCookie("actType");
@@ -80,14 +88,6 @@ function RouteComponent() {
   const relaxed = useRef<HTMLLabelElement>(null);
   const moderate = useRef<HTMLLabelElement>(null);
   const active = useRef<HTMLLabelElement>(null);
-
-  titleInfo.setState((state) => {
-    return {
-      ...state,
-      type: "h1",
-      text: "Lastly, what is your favorite environment?"
-    }
-  })
 
   return (
     <CardSection>

@@ -18,7 +18,16 @@ const getName = createServerFn({
   setCookie("travelWith", ctx.data);
   const name = getCookie("name");
 
+  titleInfo.setState((state) => {
+    return {
+      ...state,
+      type: "h1",
+      text: "What is your favorite trip style?"
+    }
+  });
+
   if (name) {
+
     return {
       name: name,
       travelWith: ctx.data
@@ -67,14 +76,6 @@ function RouteComponent() {
   const others = useRef<HTMLButtonElement>(null);
   const othersForm = useRef<HTMLDivElement>(null);
   const othersInput = useRef<HTMLInputElement>(null);
-
-  titleInfo.setState((state) => {
-    return {
-      ...state,
-      type: "h1",
-      text: "What is your favorite trip style?"
-    }
-  })
 
   return (
     <CardSection>
