@@ -1,5 +1,4 @@
-// app/routes/index.tsx
-import { createFileRoute, Link, useRouter } from '@tanstack/react-router'
+import { createFileRoute, Link, useRouter, redirect } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -9,15 +8,23 @@ import Title from '@/components/Title'
 import CardSection from '@/components/CardSection'
 
 export const Route = createFileRoute('/')({
+  beforeLoad: () => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem("token");
+      const expiresAt = localStorage.getItem("tokenExpiresAt");
+      const nickname = localStorage.getItem("nickname") || "user";
+      const now = new Date().getTime();
+
+      if (token && expiresAt && now < parseInt(expiresAt)) {
+        throw redirect({ to: "/step2", search: { name: nickname } });
+      }
+    }
+  },
   component: Home,
 });
 
 function Validation(name: string) {
-  if (name.trim() === "" || !name) {
-    return false;
-  } else {
-    return true;
-  }
+  return !(name.trim() === "" || !name);
 }
 
 function Home() {
@@ -27,13 +34,12 @@ function Home() {
 
   return (
     <>
-    <Title type="p" text="Let's plan your travel!"/>
+    <Title type="p" text="Let's plan your travel!" />
     <CardSection>
       <h1 className="text-2xl">
         To begin signing up,
         <Label htmlFor="name" className="text-2xl">please enter your name.</Label>
       </h1>
-      {/* <p>To save the result, use unique nicknames before go to the next step.</p> */}
       <form onSubmit={async (e) => {
         e.preventDefault();
         if (name.current && Validation(name.current.value)) {
@@ -44,15 +50,21 @@ function Home() {
         }
       }} className="w-fit">
         <div className="flex gap-2">
-          <Input type="text" id="name" placeholder="Name" className="text-lg" ref={name} onChange={(e) => setWarn(!Validation(e.target.value))} />
+          <Input
+            type="text"
+            id="name"
+            placeholder="Name"
+            className="text-lg"
+            ref={name}
+            onChange={(e) => setWarn(!Validation(e.target.value))}
+          />
           <Button type="submit" className="text-xl items-center">
             Next
             <CircleArrowRight />
           </Button>
         </div>
-        {warn ? <p className="text-red-400 m-0.5">Please enter your name.</p> :null}
+        {warn ? <p className="text-red-400 m-0.5">Please enter your name.</p> : null}
       </form>
-      {/* <Link to="/login" className="block text-cyan-600">Already have an account? Click here to login.</Link> */}
     </CardSection>
     </>
   )

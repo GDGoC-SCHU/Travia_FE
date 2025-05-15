@@ -21,30 +21,57 @@ function SignupPage() {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/signup`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, nickname, password }),
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, nickname, password }),
     });
 
     if (res.ok) {
-        router.navigate({ to: '/step2', search: { name: nickname} });  // 🔁 name을 전달해야 하므로 search에 반드시 포함!
+      const data = await res.json();
+      if (data.token) {
+        const expiresAt = new Date().getTime() + 2 * 60 * 60 * 1000;
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("tokenExpiresAt", expiresAt.toString());
+        localStorage.setItem("nickname", nickname);
+
+        alert("회원가입이 완료되었습니다!");
+        router.navigate({ to: '/step2', search: { name: nickname } });
+      } else {
+        alert("회원가입은 성공했지만 토큰이 없습니다.");
+      }
     } else {
-        const error = await res.json();
-        alert(`Signup failed: ${error.detail}`);  // ✅ 실패 사유 출력
+      // .json() 대신 .text()로 안전하게 추출
+      const errorText = await res.text();
+      try {
+        const error = JSON.parse(errorText);
+        alert(`Signup failed: ${error.detail || "Unknown error"}`);
+      } catch {
+        alert("Signup failed: " + errorText);
+      }
     }
   };
 
+
   return (
     <>
-      <Title type="h1" text="To save the result, use unique nicknames." />      {/* Sign up here! */}
+      <Title type="h1" text="To save the result, use unique nicknames." />
       <CardSection>
         <form className="w-fit" onSubmit={handleSignup}>
-          <Label>Name</Label>
-          <Input value={name} readOnly className="mb-2" />
           <Label>Nickname</Label>
-          <Input value={nickname} onChange={(e) => setNickname(e.target.value)} required className="mb-2" />
+          <Input
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            required
+            className="mb-2"
+          />
           <Label>Password</Label>
-          <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="mb-4" />
+          <Input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="mb-4"
+          />
           <Button type="submit">
             Signup & Start
             <CircleArrowRight />

@@ -1,4 +1,3 @@
-// app/routes/__root.tsx
 import { Suspense, type ReactNode } from 'react'
 import {
   Outlet,
@@ -14,22 +13,12 @@ import { LoaderCircle } from 'lucide-react';
 export const Route = createRootRoute({
   head: () => ({
     meta: [
-      {
-        charSet: 'utf-8',
-      },
-      {
-        name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
-      },
-      {
-        title: 'Travia',
-      },
+      { charSet: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { title: 'Travia' },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
     ],
   }),
   component: RootComponent,
@@ -39,29 +28,29 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <RootDocument>
-      <Outlet />
+      <Header />
+      <Suspense fallback={
+        <section className="w-screen h-full z-30 backdrop-blur-md flex justify-center items-center p-10">
+          <LoaderCircle className="animate-spin text-cyan-600" size={48} />
+          <span className="ml-2">We're making recommendations for you...</span>
+        </section>
+      }>
+        <main className="p-4 flex gap-4 flex-wrap lg:flex-nowrap">
+          <Outlet />
+        </main>
+      </Suspense>
     </RootDocument>
   )
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html>
+    <html lang="en">
       <head>
         <HeadContent />
       </head>
       <body>
-        <Header />
-        <Suspense fallback={
-          <section className="w-screen h-full z-30 backdrop-blur-md">
-            <LoaderCircle className="accent-cyan-600" />
-            We're making recommendations for you...
-          </section>
-        }>
-          <main className="p-4 flex gap-4 flex-wrap lg:flex-nowrap">
-            {children}
-          </main>
-        </Suspense>
+        {children}
         <Scripts />
       </body>
     </html>

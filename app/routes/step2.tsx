@@ -50,7 +50,8 @@ function SecondStep() {
         const type = localStorage.getItem("with");
 
         if (type) {
-          localStorage.clear();
+          localStorage.removeItem("with");
+          
           router.navigate({
             viewTransition: true,
             href: `/step3?travelWith=${type}`
