@@ -40,8 +40,8 @@ export default function Header(props: { session: Store<Session>, uri: ParsedLoca
                 <NavigationMenuItem>
                     {state.user_id ? (
                         <>
-                        <Link to="/home" className="rounded-xl p-2 hover:bg-slate-100 text-xl text-cyan-600">
-                            Home
+                        <Link to="/history" className="rounded-xl p-2 hover:bg-slate-100 text-xl text-cyan-600">
+                            History
                         </Link>
                         <Button className="text-xl text-cyan-600" variant="ghost" onClick={(e) => resetSession(props.session)}>
                             Logout
