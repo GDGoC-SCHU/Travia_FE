@@ -45,23 +45,35 @@ function Home() {
         First of all,
         <Label htmlFor="name" className="text-2xl">tell your name to start.</Label>
       </h1>
-      <p>If you want to save the result, use unique nicknames before go to the next step.</p>
+      <p>Use unique nicknames before go to the next step.</p>
       <form onSubmit={async (e) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
-
-        console.log(data);
-
         const name = data.get("name");
 
-        if (name && Validation(name.toString())) {
-          router.navigate({
-            viewTransition: true,
-            to: "/step2",
-            search: {
-              name: name.toString()
-            }
-          })
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_ADDRESS}/api/auth/check-username?username=${name}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "accept": "application/json"
+          }
+        });
+
+        const result = await res.json();
+
+        if (res.ok && result.is_available) {
+          
+          if (name && Validation(name.toString())) {
+            router.navigate({
+              viewTransition: true,
+              to: "/step2",
+              search: {
+                name: name.toString()
+              }
+            })
+          }
+        } else {
+          setWarn(true);
         }
       }} className="w-fit">
         <div className="flex gap-2">
@@ -71,7 +83,7 @@ function Home() {
             <CircleArrowRight />
           </Button>
         </div>
-        {warn ? <p className="text-red-400 m-0.5">Please enter your name.</p> :null}
+        {warn ? <p className="text-red-400 m-0.5">Your nickname is already exit or blank.</p> :null}
       </form>
       <Link to="/login" search={{ re_uri: "/" }} className="block text-cyan-600">Already have an account? Click here to login.</Link>
     </CardSection>
