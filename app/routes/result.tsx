@@ -5,7 +5,7 @@ import { createServerFn } from '@tanstack/react-start';
 import { getCookie, setCookie } from '@tanstack/react-start/server';
 import { CircleArrowLeft, TriangleAlert, Home, Save } from 'lucide-react';
 import * as motion from "motion/react-client"
-import { titleInfo } from './__root';
+import { session, titleInfo } from './__root';
 import LoadingIcon from '@/components/LoadingIcon';
 import { ResultData } from '@/components/ResultData';
 
@@ -100,7 +100,7 @@ export const Route = createFileRoute('/result')({
         "username": data.name,
         "preferences": {
           "companion": data.travelWith,
-          "style": Array.isArray(data.actType) ? data.actType : [data.actType],
+          "style": Array.isArray(data.actType) ? data.actType : data.actType.split(","),
           "duration": data.schedule,
           "budget": data.budget,
           "climate": data.env,
@@ -169,12 +169,13 @@ async function RouteComponent() {
               <Home />
               Go to the first page
             </Link>
-            
-            <Link to={`/login`} search={{ re_uri: "/save" }} className={ buttonVariants() }>
-              <Save />
-              Save these results!
-            </Link>
-          </div>          
+          </div>
+        {session.state.nickname ? (
+          <motion.p 
+            initial={{ opacity: 1 }} animate={{ opacity: 0 }} transition={{ duration: 3 }}>
+            Automatially saved to the account!
+          </motion.p>
+        ):""}    
         </CardSection>
       )}
     </Await>
