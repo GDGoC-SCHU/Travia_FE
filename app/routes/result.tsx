@@ -54,9 +54,9 @@ const getResult = createServerFn({
       budget: budget,
       schedule: schedule,
       transport: transport,
-      cont: data.cont,
-      env: data.env,
-      pace: data.pace
+      cont: data.cont ?? cont,
+      env: data.env ?? env,
+      pace: data.pace ?? pace
     }
   }
 })
