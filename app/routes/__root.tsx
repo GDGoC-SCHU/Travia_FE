@@ -15,7 +15,8 @@ import Header from '@/components/Header';
 import Title from '@/components/Title';
 
 export type Session = {
-  user_id: number | undefined
+  user_id: number | undefined,
+  nickname: string | undefined
 }
 
 export const titleInfo = new Store<{
@@ -28,7 +29,7 @@ export const titleInfo = new Store<{
   name: undefined
 });
 
-export const session = new Store<Session>({ user_id: undefined });
+export const session = new Store<Session>({ user_id: undefined, nickname: undefined });
 
 export const Route = createRootRoute({
   head: () => ({

@@ -1,12 +1,13 @@
 // app/routes/index.tsx
-import { createFileRoute, Link, useRouter } from '@tanstack/react-router'
+import { createFileRoute, Link, redirect, useRouter } from '@tanstack/react-router'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { CircleArrowRight } from 'lucide-react'
 import { useRef, useState } from 'react'
 import CardSection from '@/components/CardSection'
-import { titleInfo } from './__root'
+import { session, titleInfo } from './__root'
+import { deleteCookie } from '@tanstack/react-start/server'
 
 export const Route = createFileRoute('/')({
   component: Home,
@@ -18,6 +19,10 @@ export const Route = createFileRoute('/')({
         text: "Let's plan your travel!"
       }
     });
+
+    if (session.state.nickname) {
+      throw redirect({ to: "/step2", search: { name: session.state.nickname } });
+    }
   }
 });
 

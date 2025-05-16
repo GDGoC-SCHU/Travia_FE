@@ -33,14 +33,16 @@ export const Route = createFileRoute('/step2')({
     name,
   }),
   loader: ({ deps: { name } }) => {
-    titleInfo.setState((state) => {
-      return {
-      ...state,
-      name: name,
-      type: "h1",
-      text: "Tell me about your travelmate."
-    }});
-
+    if (name) {
+      titleInfo.setState((state) => {
+        return {
+        ...state,
+        name: name,
+        type: "h1",
+        text: "Tell me about your travelmate."
+      }});
+    }
+    
     return getName({ data: name });
   }
 });

@@ -6,7 +6,7 @@ import {
 import { Link, ParsedLocation } from "@tanstack/react-router"
 import { Store, useStore } from "@tanstack/react-store"
 import { Button } from "./ui/button"
-import { Session } from "@/routes/__root"
+import { Session, titleInfo } from "@/routes/__root"
 
 function resetSession(session: Store<Session>) {
     session.setState((state) => {
@@ -15,6 +15,13 @@ function resetSession(session: Store<Session>) {
             user_id: undefined     
         }
     });
+
+    titleInfo.setState((state) => {
+        return {
+            ...state,
+            name: undefined
+        }
+    })
 }
 
 export default function Header(props: { session: Store<Session>, uri: ParsedLocation }) {
@@ -30,7 +37,6 @@ export default function Header(props: { session: Store<Session>, uri: ParsedLoca
             </NavigationMenuList>
             <NavigationMenuList>
                 <NavigationMenuItem>
-
                     {state.user_id ? (
                         <>
                         <Link to="/home" className="rounded-xl p-2 hover:bg-slate-100 text-xl text-cyan-600">
@@ -41,7 +47,8 @@ export default function Header(props: { session: Store<Session>, uri: ParsedLoca
                         </Button>
                         </>
                     ) : (
-                        <Link to="/login" search={{ re_uri: `${props.uri.pathname}${props.uri.search}` }} className="rounded-xl p-2 hover:bg-slate-100 text-xl text-cyan-600">
+                        // searchParams 반영되도록 추후 수정
+                        <Link to="/login" search={{ re_uri: `${props.uri.pathname}` }} className="rounded-xl p-2 hover:bg-slate-100 text-xl text-cyan-600">
                             Login
                         </Link>
                     )}
