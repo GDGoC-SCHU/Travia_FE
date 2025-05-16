@@ -48,7 +48,7 @@ function SignupPage() {
     const res = await fetch(`${import.meta.env.VITE_BACKEND_ADDRESS}/api/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nickname, password }),
+        body: JSON.stringify({ name: nickname, nickname, password }),
     });
 
     if (res.ok) {
