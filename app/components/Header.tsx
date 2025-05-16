@@ -12,7 +12,8 @@ function resetSession(session: Store<Session>) {
     session.setState((state) => {
         return {
             ...state,
-            user_id: undefined     
+            user_id: undefined,
+            nickname: undefined   
         }
     });
 

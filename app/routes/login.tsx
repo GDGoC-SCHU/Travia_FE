@@ -98,7 +98,7 @@ function RouteComponent() {
             <CircleArrowRight />
           </Button>
         </form>
-        <Link to="/signup" className="block text-cyan-600">Does not have an account? Create here.</Link>
+        <Link to="/signup" search={{ re_uri: data }} className="block text-cyan-600">Does not have an account? Create here.</Link>
       </CardSection>
     </>
   );
