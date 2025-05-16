@@ -42,14 +42,13 @@ function SignupPage() {
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const name = data.get("name");
     const nickname = data.get("nickname");
     const password = data.get("password");    
 
     const res = await fetch(`${import.meta.env.VITE_BACKEND_ADDRESS}/api/auth/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, nickname, password }),
+        body: JSON.stringify({ nickname, password }),
     });
 
     if (res.ok) {
@@ -81,8 +80,6 @@ function SignupPage() {
     <>
       <CardSection>
         <form className="w-fit" onSubmit={handleSignup}>
-          <Label htmlFor="name">Name</Label>
-          <Input name="name" required className="mb-2" />
           <Label htmlFor="nickname">Nickname</Label>
           <Input name="nickname" required className="mb-2" />
           <Label htmlFor="password">Password</Label>
