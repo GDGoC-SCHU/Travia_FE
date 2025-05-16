@@ -3,7 +3,7 @@ import {
     NavigationMenuItem,
     NavigationMenuList,
 } from "@/components/ui/navigation-menu"  
-import { Link, ParsedLocation } from "@tanstack/react-router"
+import { Link, ParsedLocation, redirect } from "@tanstack/react-router"
 import { Store, useStore } from "@tanstack/react-store"
 import { Button } from "./ui/button"
 import { Session, titleInfo } from "@/routes/__root"
@@ -22,7 +22,9 @@ function resetSession(session: Store<Session>) {
             ...state,
             name: undefined
         }
-    })
+    });
+
+    throw redirect({ to: "/" });
 }
 
 export default function Header(props: { session: Store<Session>, uri: ParsedLocation }) {
