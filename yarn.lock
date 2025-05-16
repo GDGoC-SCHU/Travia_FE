@@ -8461,6 +8461,7 @@ __metadata:
     tailwindcss: "npm:^4.1.5"
     tw-animate-css: "npm:^1.2.8"
     typescript: "npm:^5.8.3"
+    unenv: "npm:^1.10.0"
     vinxi: "npm:^0.5.6"
     vite: "npm:^6.3.4"
     vite-tsconfig-paths: "npm:^5.1.4"

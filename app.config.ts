@@ -1,6 +1,7 @@
 // app.config.ts
 import { defineConfig } from '@tanstack/react-start/config'
 import tsConfigPaths from 'vite-tsconfig-paths'
+import { cloudflare } from 'unenv' 
 
 export default defineConfig({
   vite: {
@@ -14,6 +15,8 @@ export default defineConfig({
     prerender: {
       routes: ['/'],
       crawlLinks: true,
-    }
+    },
+    preset: "cloudflare-pages",
+    unenv: cloudflare
   }
 })
