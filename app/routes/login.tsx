@@ -65,14 +65,14 @@ function RouteComponent() {
         return {
           ...state,
           user_id: result.user_id,
-          nickname: result.nickname
+          nickname: result.username
         }
       });
 
       titleInfo.setState((state) => {
         return {
           ...state,
-          name: result.nickname
+          name: result.username
         }
       });
 
@@ -86,12 +86,12 @@ function RouteComponent() {
     <>
       <CardSection>
         <form className="w-fit" onSubmit={handleLogin}>
-          <Label>Nickname</Label>
+          <Label>Username</Label>
           <Input name="nickname" required className="mb-2" />
           <Label>Password</Label>
           <Input type="password" name="password" required className="mb-4" />
           {loginFailed ? (
-            <p className="text-red-400 m-0.5">Check your nickname or password.</p>
+            <p className="text-red-400 m-0.5">Check your username or password.</p>
           ):""}
           <Button type="submit">
             Login 
