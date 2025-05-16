@@ -1,20 +1,27 @@
-import { createFileRoute, useRouter, useSearch } from '@tanstack/react-router';
+import { createFileRoute, useRouter } from '@tanstack/react-router';
 import CardSection from '@/components/CardSection';
-import Title from '@/components/Title';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { CircleArrowRight } from 'lucide-react';
 import { useState } from 'react';
+import { titleInfo } from './__root';
 
 export const Route = createFileRoute('/signup')({
   component: SignupPage,
-  validateSearch: (search) => search as { name: string },
+  loader: () => {
+    titleInfo.setState((state) => {
+      return {
+        ...state,
+        type: "h1",
+        text: "To save the result, use unique nicknames."
+      }
+    });
+  }
 });
 
 function SignupPage() {
   const router = useRouter();
-  const { name } = Route.useSearch();
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
 
@@ -36,17 +43,14 @@ function SignupPage() {
 
   return (
     <>
-      <Title type="h1" text="To save the result, use unique nicknames." />      {/* Sign up here! */}
       <CardSection>
         <form className="w-fit" onSubmit={handleSignup}>
-          <Label>Name</Label>
-          <Input value={name} readOnly className="mb-2" />
           <Label>Nickname</Label>
           <Input value={nickname} onChange={(e) => setNickname(e.target.value)} required className="mb-2" />
           <Label>Password</Label>
           <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required className="mb-4" />
           <Button type="submit">
-            Signup & Start
+            Signup
             <CircleArrowRight />
           </Button>
         </form>

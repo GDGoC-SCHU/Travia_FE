@@ -1,15 +1,13 @@
 import CardSection from '@/components/CardSection';
-import { Accordion, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Button, buttonVariants } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { AccordionContent } from '@radix-ui/react-accordion';
-import { createFileRoute, Link, redirect, defer, Await, ErrorComponent } from '@tanstack/react-router'
+import { buttonVariants } from '@/components/ui/button';
+import { createFileRoute, Link, redirect, Await } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start';
 import { getCookie } from '@tanstack/react-start/server';
-import { CircleArrowLeft, CircleArrowRight, Coffee, CakeSlice, Pizza, Pyramid, FishSymbol, CircleEllipsis, FlameKindling, Leaf, Snowflake, Footprints, Armchair, Activity, TriangleAlert, ArrowLeftCircle, ArrowRightCircle, Home, LoaderCircle } from 'lucide-react';
-import { Suspense, useRef, useState } from 'react';
+import { CircleArrowLeft, TriangleAlert, Home } from 'lucide-react';
 import * as motion from "motion/react-client"
 import { titleInfo } from './__root';
+import LoadingIcon from '@/components/LoadingIcon';
+import { ResultData } from '@/components/ResultData';
 
 type Continent = "asia" | "europe" | "america" | "oceania" | "africa" | "anywhere";
 type Environment = "warm" | "fresh" | "snowy";
@@ -41,13 +39,6 @@ const getResult = createServerFn({
   } else if (!data) {
     throw redirect({ to: "/step5", search: { schedule: schedule, budget: budget, transport: transport }})
   } else {
-    titleInfo.setState((state) => {
-      return {
-      ...state,
-      type: "h1",
-      text: "Recommends these cities based on your information.",
-    }});
-
     return {
       name: name,
       travelWith: travelWith,
@@ -82,6 +73,14 @@ export const Route = createFileRoute('/result')({
       env: env,
       pace: pace }
     });
+
+    titleInfo.setState((state) => {
+      return {
+      ...state,
+      name: data.name,
+      type: "h1",
+      text: "Recommends these cities based on your information.",
+    }});
     
     const resultResponse = fetch(`${import.meta.env.VITE_BACKEND_ADDRESS}/api/v1/survey/recommend`, {
       method: "POST",
@@ -127,73 +126,19 @@ export const Route = createFileRoute('/result')({
 
 async function RouteComponent() {
   const { data, resultResponse } = Route.useLoaderData();
-  const [index, setIndex] = useState<number>(0);
+  const LoadingComp = motion.create(LoadingIcon);
 
   return (
     <Await promise={resultResponse} fallback={
-      <section className="w-screen h-full z-30 backdrop-blur-md">
-        <LoaderCircle className="accent-cyan-600" />
-        We're making recommendations for you...
+      <section className="grow h-full z-30 backdrop-blur-md rounded-lg bg-white border-slate-400 border-1 my-2 p-4 flex items-center justify-center gap-2">
+        <LoadingComp animate={{ rotate: 360 }} transition={{ duration: 10, repeat: 3 }} />
+        <p className="text-xl">We're making recommendations for you...</p>
       </section>
     }>
       {(result) => (
         <CardSection>
         {result.data ? (
-          <>
-          <div className="flex justify-between lg:justify-start gap-4 items-center">
-            <Button
-              disabled={index === 0}
-              onClick={() => setIndex(index - 1)}>
-              <ArrowLeftCircle size={48} />
-            </Button>
-            <span className="text-xl">{index + 1} / {result.data.length}</span>
-            <Button
-              disabled={index === result.data.length - 1}
-              onClick={() => setIndex(index + 1)}>
-              <ArrowRightCircle size={48} />
-            </Button>
-          </div>
-          <div className="flex">
-            <div className="pt-4 grow shrink min-w-0">
-              <h2 className="text-2xl">
-                <span className="text-base block">
-                  {result.data[index].country}
-                </span>
-                {result.data[index].city}
-              </h2>
-              <Accordion type="single" collapsible className="lg:me-4">
-                <AccordionItem value="reason">
-                  <AccordionTrigger className="my-2 text-xl hover:bg-gray-50 px-4 hover:no-underline">📝 Reasons to recommend!</AccordionTrigger>
-                  <AccordionContent>
-                    <motion.p className="p-4 bg-blue-50 rounded-md"
-                      initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
-                      {result.data[index].reason}
-                    </motion.p>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-
-              <div className="max-w-(--scrollable-max-width) overflow-x-scroll flex gap-2 py-8 px-4 rounded-2xl">
-                {Object.keys(result.data[index].schedule).map((day, idx) => (
-                  <Card className="shadow-xl p-4 shrink-0 w-6/7 lg:w-72" key={idx}>
-                    <h3 className="text-xl">Day {day.split("_")[1]}</h3>
-                    {result.data[index].schedule[day].map((ev : { time: string, activity: string }, idx: number) => (
-                      <p key={idx}>
-                        <span className="text-lg block">⌚ {ev.time}</span>
-                        <span>{ev.activity}</span>
-                      </p>
-                    ))}
-                  </Card>
-                ))}
-              </div>
-            </div>
-            <div className="hidden lg:block py-4 shrink-0">
-              <motion.img initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.5 }}
-                src={`https://maps.googleapis.com/maps/api/staticmap?center=${result.data[index].country}+${result.data[index].city}&zoom=12&size=250x250&key=${import.meta.env.VITE_GOOGLE_API_KEY}`}
-                alt={`${result.data[index].city} 지도`} className="rounded-xl aspect-square" />
-            </div>
-          </div>
-          </>
+          <ResultData data={result.data} />
         ): (
           <div className="text-center flex flex-col justify-center items-center">
             <h2 className="text-2xl">

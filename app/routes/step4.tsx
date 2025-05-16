@@ -19,14 +19,6 @@ const getAct = createServerFn({
   const name = getCookie("name");
   const travelWith = getCookie("travelWith");
 
-  titleInfo.setState((state) => {
-    return {
-      ...state,
-      type: "h1",
-      text: "Could you tell me about more details?"
-    }
-  });
-
   if (name && travelWith) {
     return {
       name: name,
@@ -48,6 +40,28 @@ function numberHelper(e: React.ChangeEvent<HTMLInputElement>) {
 
   e.target.value = numberArray.join("");  
 }
+
+export const Route = createFileRoute('/step4')({
+  component: RouteComponent,
+  validateSearch: (search) =>
+    search as {
+      act: string
+    },
+  loaderDeps: ({ search: { act } }) => ({
+    act,
+  }),
+  loader: ({ deps: { act } }) => {
+    titleInfo.setState((state) => {
+      return {
+        ...state,
+        type: "h1",
+        text: "Could you tell me about more details?"
+      }
+    });
+  
+    return getAct({ data: act });
+  }
+})
 
 function RouteComponent() {
   const data = Route.useLoaderData();
@@ -143,18 +157,4 @@ function RouteComponent() {
     </CardSection>
   )
 }
-
-export const Route = createFileRoute('/step4')({
-  component: RouteComponent,
-  validateSearch: (search) =>
-    search as {
-      act: string
-    },
-  loaderDeps: ({ search: { act } }) => ({
-    act,
-  }),
-  loader: ({ deps: { act } }) => (
-    getAct({ data: act })
-  )
-})
 

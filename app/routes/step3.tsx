@@ -18,16 +18,7 @@ const getName = createServerFn({
   setCookie("travelWith", ctx.data);
   const name = getCookie("name");
 
-  titleInfo.setState((state) => {
-    return {
-      ...state,
-      type: "h1",
-      text: "What is your favorite trip style?"
-    }
-  });
-
   if (name) {
-
     return {
       name: name,
       travelWith: ctx.data
@@ -59,9 +50,16 @@ export const Route = createFileRoute('/step3')({
   loaderDeps: ({ search: { travelWith } }) => ({
     travelWith,
   }),
-  loader: ({ deps: { travelWith } }) => (
-    getName({ data: travelWith })
-  )
+  loader: ({ deps: { travelWith } }) => {
+    titleInfo.setState((state) => {
+      return {
+        ...state,
+        type: "h1",
+        text: "What is your favorite trip style?"
+      }
+    });    
+    return getName({ data: travelWith });
+  }
 })
 
 function RouteComponent() {

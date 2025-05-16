@@ -21,14 +21,6 @@ const getST = createServerFn({
   setCookie("transport", ctx.data.transport);
   setCookie("budget", ctx.data.budget);
 
-  titleInfo.setState((state) => {
-    return {
-      ...state,
-      type: "h1",
-      text: "Lastly, what is your favorite environment?"
-    }
-  });
-
   const name = getCookie("name");
   const travelWith = getCookie("travelWith");
   const actType = getCookie("actType");
@@ -63,13 +55,20 @@ export const Route = createFileRoute('/step5')({
   loaderDeps: ({ search: { schedule, budget, transport } }) => ({
     schedule, budget, transport
   }),
-  loader: ({ deps: { schedule, budget, transport } }) => (
-    getST({ data: {
+  loader: ({ deps: { schedule, budget, transport } }) => {
+    titleInfo.setState((state) => {
+      return {
+        ...state,
+        type: "h1",
+        text: "Lastly, what is your favorite environment?"
+      }
+    });
+    return getST({ data: {
       schedule: schedule,
       budget: budget,
       transport: transport }
-    })
-  )
+    });
+  }
 })
 
 function RouteComponent() {
