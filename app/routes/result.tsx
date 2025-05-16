@@ -40,7 +40,7 @@ const getResult = createServerFn({
     throw redirect({ to: "/step3", search: { travelWith: travelWith }});
   } else if (!schedule || !transport || !budget) {
     throw redirect({ to: "/step4", search: { act: actType }});
-  } else if (!data || !(cont && env && pace)) {
+  } else if (!data && !(cont && env && pace)) {
     throw redirect({ to: "/step5", search: { schedule: schedule, budget: budget, transport: transport }})
   } else {
     setCookie("cont", data.cont);
