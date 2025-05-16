@@ -12,16 +12,17 @@ import { deleteCookie } from '@tanstack/react-start/server'
 export const Route = createFileRoute('/')({
   component: Home,
   loader: () => {
-    titleInfo.setState((state) => {
-      return {
-        ...state,
-        type: "p",
-        text: "Let's plan your travel!"
-      }
-    });
-
     if (session.state.nickname) {
       throw redirect({ to: "/step2", search: { name: session.state.nickname } });
+    } else {
+      titleInfo.setState((state) => {
+        return {
+          ...state,
+          name: undefined,
+          type: "p",
+          text: "Let's plan your travel!"
+        }
+      });
     }
   }
 });
