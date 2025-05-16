@@ -5,7 +5,6 @@ import { ResultData } from "./ResultData";
 import { Button } from "./ui/button";
 import * as motion from "motion/react-client";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion";
-import { Badge } from "./ui/badge";
 import PrefList from "./PrefList";
 
 export default function HistoryList(props: { survey }) {
@@ -38,7 +37,7 @@ export default function HistoryList(props: { survey }) {
         budget: reco.preferences.budget,
         driving: getHumanReadable("driving", reco.preferences.driving),
         climate: getHumanReadable("climate", reco.preferences.climate),
-        cont: getHumanReadable("continent", reco.preferences.cont),
+        cont: getHumanReadable("continent", reco.preferences.continent),
         density: getHumanReadable("density", reco.preferences.density)
       },
       recommendation: reco.recommendation
