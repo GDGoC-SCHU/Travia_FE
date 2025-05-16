@@ -8,17 +8,17 @@ import { useRef, useState } from 'react'
 import CardSection from '@/components/CardSection'
 import { titleInfo } from './__root'
 
-titleInfo.setState((state) => {
-  return {
-    ...state,
-    type: "p",
-    text: "Let's plan your travel!"
-  }
-});
-
-
 export const Route = createFileRoute('/')({
   component: Home,
+  loader: () => {
+    titleInfo.setState((state) => {
+      return {
+        ...state,
+        type: "p",
+        text: "Let's plan your travel!"
+      }
+    });
+  }
 });
 
 function Validation(name: string) {
@@ -32,26 +32,34 @@ function Validation(name: string) {
 function Home() {
   const router = useRouter();
   const [warn, setWarn] = useState<boolean>(false);
-  const name = useRef<HTMLInputElement|null>(null);
 
   return (
     <CardSection>
       <h1 className="text-2xl">
-        To begin signing up,
-        <Label htmlFor="name" className="text-2xl">please enter your name.</Label>
+        First of all,
+        <Label htmlFor="name" className="text-2xl">tell your name to start.</Label>
       </h1>
-      {/* <p>To save the result, use unique nicknames before go to the next step.</p> */}
+      <p>If you want to save the result, use unique nicknames before go to the next step.</p>
       <form onSubmit={async (e) => {
         e.preventDefault();
-        if (name.current && Validation(name.current.value)) {
+        const data = new FormData(e.currentTarget);
+
+        console.log(data);
+
+        const name = data.get("name");
+
+        if (name && Validation(name.toString())) {
           router.navigate({
             viewTransition: true,
-            href: `/step2?name=${name.current.value}`
+            to: "/step2",
+            search: {
+              name: name.toString()
+            }
           })
         }
       }} className="w-fit">
         <div className="flex gap-2">
-          <Input type="text" id="name" placeholder="Name" className="text-lg" ref={name} onChange={(e) => setWarn(!Validation(e.target.value))} />
+          <Input type="text" name="name" placeholder="Name" className="text-lg" onChange={(e) => setWarn(!Validation(e.target.value))} />
           <Button type="submit" className="text-xl items-center">
             Next
             <CircleArrowRight />
@@ -59,7 +67,7 @@ function Home() {
         </div>
         {warn ? <p className="text-red-400 m-0.5">Please enter your name.</p> :null}
       </form>
-      <Link to="/login" className="block text-cyan-600">Already have an account? Click here to login.</Link>
+      <Link to="/login" search={{ re_uri: "/" }} className="block text-cyan-600">Already have an account? Click here to login.</Link>
     </CardSection>
   )
 }
