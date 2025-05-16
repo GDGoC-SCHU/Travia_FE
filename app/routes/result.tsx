@@ -92,7 +92,7 @@ export const Route = createFileRoute('/result')({
         "username": data.name,
         "preferences": {
           "companion": data.travelWith,
-          "style": data.actType,
+          "style": Array.isArray(data.actType) ? data.actType : [data.actType],
           "duration": data.schedule,
           "budget": data.budget,
           "climate": data.env,
