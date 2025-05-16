@@ -2,8 +2,8 @@ import CardSection from '@/components/CardSection';
 import { buttonVariants } from '@/components/ui/button';
 import { createFileRoute, Link, redirect, Await } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start';
-import { getCookie } from '@tanstack/react-start/server';
-import { CircleArrowLeft, TriangleAlert, Home } from 'lucide-react';
+import { getCookie, setCookie } from '@tanstack/react-start/server';
+import { CircleArrowLeft, TriangleAlert, Home, Save } from 'lucide-react';
 import * as motion from "motion/react-client"
 import { titleInfo } from './__root';
 import LoadingIcon from '@/components/LoadingIcon';
@@ -28,6 +28,10 @@ const getResult = createServerFn({
   const schedule = getCookie("schedule");
   const transport = getCookie("transport") as "public_transport" | "car";
 
+  const cont = getCookie("cont");
+  const env = getCookie("env");
+  const pace = getCookie("pace");
+
   if (!name) {
     throw redirect({ to: "/"});
   } else if (!travelWith) {
@@ -36,9 +40,13 @@ const getResult = createServerFn({
     throw redirect({ to: "/step3", search: { travelWith: travelWith }});
   } else if (!schedule || !transport || !budget) {
     throw redirect({ to: "/step4", search: { act: actType }});
-  } else if (!data) {
+  } else if (!data || !(cont && env && pace)) {
     throw redirect({ to: "/step5", search: { schedule: schedule, budget: budget, transport: transport }})
   } else {
+    setCookie("cont", data.cont);
+    setCookie("env", data.env);
+    setCookie("pace", data.pace);
+
     return {
       name: name,
       travelWith: travelWith,
@@ -160,6 +168,11 @@ async function RouteComponent() {
             <Link to={`/`} className={ buttonVariants() }>
               <Home />
               Go to the first page
+            </Link>
+            
+            <Link to={`/login`} search={{ re_uri: "/save" }} className={ buttonVariants() }>
+              <Save />
+              Save these results!
             </Link>
           </div>          
         </CardSection>
