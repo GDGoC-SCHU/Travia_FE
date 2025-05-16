@@ -83,7 +83,7 @@ function Home() {
             <CircleArrowRight />
           </Button>
         </div>
-        {warn ? <p className="text-red-400 m-0.5">Your nickname is already exit or blank.</p> :null}
+        {warn ? <p className="text-red-400 m-0.5">Your nickname is already exist or blank.</p> :null}
       </form>
       <Link to="/login" search={{ re_uri: "/" }} className="block text-cyan-600">Already have an account? Click here to login.</Link>
     </CardSection>
