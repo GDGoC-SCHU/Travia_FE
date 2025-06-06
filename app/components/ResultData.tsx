@@ -58,9 +58,11 @@ export function ResultData(props: { data }) {
             </div>
           </div>
           <div className="hidden lg:block py-4 shrink-0">
+            {import.meta.env.VITE_GOOGLE_API_KEY ? (
             <motion.img initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.5 }}
               src={`https://maps.googleapis.com/maps/api/staticmap?center=${props.data[index].country}+${props.data[index].city}&zoom=12&size=250x250&key=${import.meta.env.VITE_GOOGLE_API_KEY}`}
               alt={`${props.data[index].city} 지도`} className="rounded-xl aspect-square" />
+            ) : ""}
           </div>
         </motion.div>
         </>
