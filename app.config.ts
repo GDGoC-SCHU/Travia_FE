@@ -16,7 +16,6 @@ export default defineConfig({
       routes: ['/'],
       crawlLinks: true,
     },
-    preset: "cloudflare-pages",
-    unenv: cloudflare
+    preset: "node-server",
   }
 })
